@@ -1,0 +1,19 @@
+{
+     "button":[
+     {
+          "type":"click",
+          "name":"轻课计划",
+          "key":"GET_PLAN"
+      },
+      {
+          "type":"click",
+          "name":"每日任务",
+          "key":"GET_MISSION"
+      },{
+          "type":"click",
+          "name":"排行榜",
+          "key":"GET_RANK"
+      }
+
+      ]
+ }

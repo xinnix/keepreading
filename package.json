@@ -1,0 +1,29 @@
+{
+  "name": "lightclass",
+  "version": "1.0.0",
+  "description": "joy and will online",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha  -t 10000 --compilers js:babel-core/register --require ./test/testHelper.js 'test/**/*.@(js)'",
+    "test-gulp": "./node_modules/gulp/bin/gulp.js mocha"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "chalk": "^1.1.1",
+    "express": "^4.0.0",
+    "lodash": "^4.6.0",
+    "mongoose": "^4.4.5",
+    "swig": "^1.4.2",
+    "wechat": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.4.5",
+    "should": "^8.3.0",
+    "supertest": "^1.2.0"
+  }
+}
