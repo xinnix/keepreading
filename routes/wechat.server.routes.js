@@ -1,14 +1,31 @@
 const wechatController = require('../controllers/wechat.server.controllers.js');
 const express = require('express');
 const wechat = require('wechat');
+const config  = require('../config/config');
+
 /* eslint-disable*/
 const router = express.Router();
+const wechatConfig = {
+  token: 'helloworld',
+  appid: config.appid,
+  encodingAESKey: 'e4miuSxQNBIAFYuyi5ky0m1R79oV950ijnjKOtPSXYG'
+};
 /* eslint-enable*/
-router.use('/', wechat('helloworld', wechat
+// router.use('/', wechat(wechatConfig,
+//
+//   function(req,res,next){
+//     next();
+//   }
+// ));
+router.use('/', wechat('helloworld')
 .text(wechatController.handleText)
 .voice(wechatController.handleVoice)
 .event(wechatController.handleEvent)
-));
+.middlewarify(),
+function(req,res){
+  res.send('');
+}
+);
 
 module.exports = router;
 // .image(function (message, req, res, next) {

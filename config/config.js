@@ -1,5 +1,9 @@
 module.exports = {
   port: process.env.PORT || 3000,
-  db: process.env.LIGHTCLASS_DB_URI || 'mongodb://localhost/lightclass',
+  db: process.env.LIGHTCLASS_DB_URI || 'mongodb://localhost/keepreading',
   dbtest: 'mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass',
+  appid_test: 'wxf8e294c011cd47e1',
+  appsecret_test: '729b99cfef8f39ec492f4fbaf3576b72',
+  appid: 'wx45da6ee61de93b35',
+  appsecret: '9f39106cf826916bb0278826b5562e6e',
 };

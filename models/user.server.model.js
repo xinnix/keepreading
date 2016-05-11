@@ -11,5 +11,6 @@ const UserSchema = new Schema({
   groupid: String,
   tagid_list: Date,
   keepdays: Number,
+  state: String,
 });
 mongoose.model('User', UserSchema);

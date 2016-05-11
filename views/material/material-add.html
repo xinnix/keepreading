@@ -1,0 +1,22 @@
+{% extends '../layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>素材录入</h1>
+  <form action="material" method="post">
+    <div class="form-group">
+      <label for="name">素材名称</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="素材名称">
+    </div>
+    <div class="form-group">
+      <label for="memo">素材备注</label>
+      <input type="text" class="form-control" id="memo" name="memo" placeholder="素材备注">
+    </div>
+    <div class="form-group">
+      <label for="material_name">选择上传文件</label>
+      <input type="file" class="form-control" id="material_name" name="material_name">
+    </div>
+    <button type="submit" class="btn btn-default">添加</button>
+  </form>
+</div>
+{% endblock %}
