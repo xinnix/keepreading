@@ -1,6 +1,9 @@
 // const mongoose = require('mongoose');
 // // const User = mongoose.model('User');
 // // const Quote = mongoose.model('Quote');
+const mongoose = require('mongoose');
+const Material = mongoose.model('Material');
+
 const handleText = function(message, req, res, next){
   // require('./core/mainLogical.server');
 
@@ -13,12 +16,7 @@ const handleEvent = function(message, req, res, next){
       res.reply('获取计划啦啦');
       break;
     case 'GET_MISSION':
-      res.reply({
-        type: 'image',
-        content: {
-          mediaId: 'MMjd_GP1Q8X646Ap_jMOmW65fhBTd18nU1Ez9IREoaQ',
-        },
-      });
+      getMission(message,req,res,next);
       break;
     case 'GET_RANK':
       res.reply('获取排行榜啦啦');
@@ -30,5 +28,21 @@ const handleEvent = function(message, req, res, next){
 const handleVoice = function(message, req, res, next){
   res.reply('发送了语音哦');
 };
+
+function getMission(message, req, res, next){
+  Material.find({})
+  .sort('-created')
+  .limit(1)
+  .exec((err, material) => {
+    res.reply({
+      type: 'image',
+      content: {
+        mediaId: material[0].media_id,
+      },
+    });
+  });
+}
+
+
 
 module.exports = { handleText, handleEvent, handleVoice };

@@ -7,6 +7,10 @@ const MaterialSchema = new Schema({
   url: String,
   memo: String,
   type: String,
+  created: {
+    type: Date,
+    default: Date.now,
+  },
   permanent: Boolean,
 });
 mongoose.model('Material', MaterialSchema);

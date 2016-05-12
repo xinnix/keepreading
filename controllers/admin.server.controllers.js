@@ -1,41 +1,68 @@
-import { getErrorMessage } from './core/errors.server.controllers';
+const getErrorMessage = require('./core/errors.server.controllers').getErrorMessage;
 // import _ from 'lodash';
 const mongoose = require('mongoose');
+const Material = mongoose.model('Material');
+const wechatAPI = require('../config/wechatAPI');
+const fs = require('fs');
+
+function materialAdd(req, res) {
+  const material = new Material(req.body);
+  wechatAPI.uploadMaterial(req.files.material.path, 'image', (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(400).send({
+        message: getErrorMessage(err),
+      });
+    } else {
+      // fs.unlink(req.files.material.path, function(err){
+      // });
+      material.media_id = result.media_id;
+      material.url = result.url;
+      material.save((err1) => {
+        if (err1) {
+          res.status(400).send({
+            message: getErrorMessage(err1),
+          });
+        } else {
+          res.redirect('/admin/material');
+        }
+      });
+    }
+  });
+}
+
+function materialList(req, res) {
+  Material.find({})
+  .sort('-created')
+  .exec((err, materials) => {
+    if (err) {
+      res.status(400).send({
+        message: getErrorMessage(err),
+      });
+    } else {
+      res.render('./material/material-list', { materials: materials });
+    }
+  });
+}
 
 
-export function material_add(req, res) {
-  // const student = new Student(req.body);
-  // student.save((err) => {
-  //   if (err) {
-  //     res.status(400).send({
-  //       message: getErrorMessage(err),
-  //     });
-  //   } else {
-  //     res.jsonp(student);
-  //   }
-  // });
+function materialRender(req, res){
+  res.render('./material/material-add');
 }
-export function material_list(req, res) {
-  // Student.find({})
-  // .sort('-created')
-  // .populate('group')
-  // .exec((err, students) => {
-  //   if (err) {
-  //     res.status(400).send({
-  //       message: getErrorMessage(err),
-  //     });
-  //   } else {
-  //     res.jsonp(students);
-  //     // res.render('lclass/lclass_list',{lclasses:lclasses});
-  //   }
-  // });
-}
-export function quote_add(req, res) {
+function quote_add(req, res) {
 
 }
-export function quote_add(req, res) {
+function quote_add(req, res) {
 
 }
+
+
+module.exports = {
+  materialAdd,
+  materialList,
+  materialRender,
+};
+
 
 // export function read(req, res) {
 //   // convert mongoose document to JSON

@@ -1,10 +1,15 @@
 const admin = require('../controllers/admin.server.controllers.js');
 const express = require('express');
 
+
 const router = express.Router();
 
-router.route('/')
-.get(admin.list)
-.post(admin.create);
+router.route('/material')
+    .post(admin.materialAdd)
+    .get(admin.materialList);
 
-export default router;
+router.route('/material/add')
+    .get(admin.materialRender);
+
+
+module.exports = router;

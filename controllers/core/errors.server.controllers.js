@@ -1,7 +1,7 @@
 /**
  * Get unique error field name
  */
-export function getUniqueErrorMessage(err) {
+ function getUniqueErrorMessage(err) {
   let output;
   try {
     let begin = 0;
@@ -26,7 +26,7 @@ export function getUniqueErrorMessage(err) {
 /**
  * Get the error message from error object
  */
-export function getErrorMessage(err) {
+ function getErrorMessage(err) {
   let message = '';
   if (err.code) {
     switch (err.code) {
@@ -38,7 +38,7 @@ export function getErrorMessage(err) {
         message = 'Something went wrong';
     }
   } else {
-    for (let errName in err.errors) {
+    for (const errName in err.errors) {
       if (err.errors[errName].message) {
         message = err.errors[errName].message;
       }
@@ -46,3 +46,8 @@ export function getErrorMessage(err) {
   }
   return message;
 }
+
+module.exports = {
+  getUniqueErrorMessage,
+  getErrorMessage,
+};
