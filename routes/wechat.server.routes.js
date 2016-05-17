@@ -1,15 +1,11 @@
 const wechatController = require('../controllers/wechat.server.controllers.js');
 const express = require('express');
 const wechat = require('wechat');
-const config  = require('../config/config');
-
+const wechatConfig = require('../config/config').wechatConfig;
 /* eslint-disable*/
 const router = express.Router();
-const wechatConfig = {
-  token: 'helloworld',
-  appid: config.appid,
-  encodingAESKey: 'e4miuSxQNBIAFYuyi5ky0m1R79oV950ijnjKOtPSXYG'
-};
+
+
 /* eslint-enable*/
 // router.use('/', wechat(wechatConfig,
 //
@@ -17,14 +13,14 @@ const wechatConfig = {
 //     next();
 //   }
 // ));
-router.use('/', wechat('helloworld')
-.text(wechatController.handleText)
-.voice(wechatController.handleVoice)
-.event(wechatController.handleEvent)
-.middlewarify(),
-function(req,res){
-  res.send('');
-}
+router.use('/', wechat(wechatConfig.token)
+    .text(wechatController.handleText)
+    .voice(wechatController.handleVoice)
+    .event(wechatController.handleEvent)
+    .middlewarify(),
+    (req, res) => {
+      res.send('');
+    }
 );
 
 module.exports = router;
@@ -39,14 +35,14 @@ module.exports = router;
 //   // MsgId: '5837397301622104395' }
 // })
 
-  // message为音频内容
-  // { ToUserName: 'gh_d3e07d51b513',
-  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
-  // CreateTime: '1359125022',
-  // MsgType: 'voice',
-  // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
-  // Format: 'amr',
-  // MsgId: '5837397520665436492' }
+// message为音频内容
+// { ToUserName: 'gh_d3e07d51b513',
+// FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+// CreateTime: '1359125022',
+// MsgType: 'voice',
+// MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+// Format: 'amr',
+// MsgId: '5837397520665436492' }
 
 // .video(function (message, req, res, next) {
 //   // message为视频内容
@@ -92,16 +88,16 @@ module.exports = router;
 //   // MsgId: '5837397520665436492' }
 // })
 
-  // message为事件内容
-  // { ToUserName: 'gh_d3e07d51b513',
-  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
-  // CreateTime: '1359125022',
-  // MsgType: 'event',
-  // Event: 'LOCATION',
-  // Latitude: '23.137466',
-  // Longitude: '113.352425',
-  // Precision: '119.385040',
-  // MsgId: '5837397520665436492' }
+// message为事件内容
+// { ToUserName: 'gh_d3e07d51b513',
+// FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+// CreateTime: '1359125022',
+// MsgType: 'event',
+// Event: 'LOCATION',
+// Latitude: '23.137466',
+// Longitude: '113.352425',
+// Precision: '119.385040',
+// MsgId: '5837397520665436492' }
 // .device_text(function (message, req, res, next) {
 //   // message为设备文本消息内容
 //   // { ToUserName: 'gh_d3e07d51b513',

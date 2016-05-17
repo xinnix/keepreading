@@ -3,20 +3,40 @@
 // // const Quote = mongoose.model('Quote');
 const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
+const imgHelper = require('../helper/imgHelper.server');
+const userHelper = require('../helper/userHelper.server');
+const wechatAPI = require('../config/wechatAPI');
 
-const handleText = function(message, req, res, next){
-  // require('./core/mainLogical.server');
+// 从数据库里获取任务合成任务卡
+function getMission() {
+  return Material.find({})
+  .sort('-created')
+  .limit(1)
+  .exec();
+}
+// 处理任务卡的图片回复
+function handleGetMession(message, req, res, next) {
+  getMission().then((material) => {
+    res.reply({
+      type: 'image',
+      content: {
+        mediaId: material[0].media_id,
+      },
+    });
+  }).catch(err => {
+    console.log(err);
+  });
+}
 
-  res.reply('呵呵，你发了文字信息');
-};
 
-const handleEvent = function(message, req, res, next){
+// 处理单击按钮事件
+function handleEventClick(message, req, res, next) {
   switch (message.EventKey) {
     case 'GET_PLAN':
       res.reply('获取计划啦啦');
       break;
     case 'GET_MISSION':
-      getMission(message,req,res,next);
+      handleGetMession(message, req, res, next);
       break;
     case 'GET_RANK':
       res.reply('获取排行榜啦啦');
@@ -24,25 +44,47 @@ const handleEvent = function(message, req, res, next){
     default:
       res.reply('没匹配上啦啦');
   }
-};
-const handleVoice = function(message, req, res, next){
-  res.reply('发送了语音哦');
-};
+}
 
-function getMission(message, req, res, next){
-  Material.find({})
-  .sort('-created')
-  .limit(1)
-  .exec((err, material) => {
-    res.reply({
-      type: 'image',
-      content: {
-        mediaId: material[0].media_id,
-      },
-    });
-  });
+function handleText(message, req, res, next) {
+  // wechatAPI.sendText(message.FromUserName, 'Hello world', (err, result) => {
+  //   console.log(result);
+  // });
+  res.reply('发送消息');
+}
+
+function handleEvent(message, req, res, next) {
+  switch (message.Event) {
+    case 'CLICK':
+      handleEventClick(message, req, res, next);
+      break;
+    case 'subscribe':
+      userHelper.getUserInfo(message, req, res, next);
+      break;
+    default:
+      res.reply('没匹配上啦啦');
+  }
 }
 
 
+const handleVoice = function(message, req, res, next){
+  res.reply('您的奖励卡正在制作中，请稍后');
+  userHelper.getUserInfo(message, req, res, next)
+  .then(user => imgHelper.combineGiftCard(user, 'material/card1.png'))
+  .then(file => imgHelper.uploadImg(file))
+  .then(mediaId => {
+    // res.reply({
+    //   type: 'image',
+    //   content: {
+    //     mediaId,
+    //   },
+    // });
+    wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
 
 module.exports = { handleText, handleEvent, handleVoice };

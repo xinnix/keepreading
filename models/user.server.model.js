@@ -10,7 +10,22 @@ const UserSchema = new Schema({
   headimgurl: String,
   groupid: String,
   tagid_list: Date,
-  keepdays: Number,
+  keepdays: {
+    type: Number,
+    default: 0,
+  },
+  max_keepdays: {
+    type: Number,
+    default: 0,
+  },
+  level: {
+    type: String,
+    default: 'R1',
+  },
+  score: {
+    type: Number,
+    default: 100,
+  },
   state: String,
 });
 mongoose.model('User', UserSchema);

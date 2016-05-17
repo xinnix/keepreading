@@ -3,30 +3,38 @@ const getErrorMessage = require('./core/errors.server.controllers').getErrorMess
 const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
 const wechatAPI = require('../config/wechatAPI');
-const fs = require('fs');
 
 function materialAdd(req, res) {
   const material = new Material(req.body);
-  wechatAPI.uploadMaterial(req.files.material.path, 'image', (err, result) => {
+  // wechatAPI.uploadMaterial(req.files.material.path, 'image', (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //     res.status(400).send({
+  //       message: getErrorMessage(err),
+  //     });
+  //   } else {
+  //     // fs.unlink(req.files.material.path, function(err){
+  //     // });
+  //     material.media_id = result.media_id;
+  //     material.url = result.url;
+  //     material.save((err1) => {
+  //       if (err1) {
+  //         res.status(400).send({
+  //           message: getErrorMessage(err1),
+  //         });
+  //       } else {
+  //         res.redirect('/admin/material');
+  //       }
+  //     });
+  //   }
+  // });
+  material.save((err) => {
     if (err) {
-      console.log(err);
       res.status(400).send({
         message: getErrorMessage(err),
       });
     } else {
-      // fs.unlink(req.files.material.path, function(err){
-      // });
-      material.media_id = result.media_id;
-      material.url = result.url;
-      material.save((err1) => {
-        if (err1) {
-          res.status(400).send({
-            message: getErrorMessage(err1),
-          });
-        } else {
-          res.redirect('/admin/material');
-        }
-      });
+      res.redirect('/admin/material');
     }
   });
 }

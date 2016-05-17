@@ -2,21 +2,21 @@
 
 {% block content %}
 <div class="container">
-  <h1>素材录入</h1>
+  <h1>阅读文章录入</h1>
   <form action="/admin/material" enctype="multipart/form-data" method="post">
     <div class="form-group">
-      <label for="name">素材名称</label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="素材名称">
+      <label for="name">文章标题</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="标题">
     </div>
     <div class="form-group">
-      <label for="memo">素材备注</label>
-      <input type="text" class="form-control" id="memo" name="memo" placeholder="素材备注">
+      <label for="memo">文章内容</label>
+      <input type="textarea" class="form-control" id="memo" name="memo" placeholder="内容">
     </div>
     <div class="form-group">
-      <label for="material">选择上传文件</label>
+      <label for="material">选择上传标准朗读</label>
       <input type="file" class="form-control" id="material" name="material">
     </div>
-    <button type="submit" class="btn btn-default">添加</button>
+    <button type="submit" class="btn btn-default">完成</button>
   </form>
 </div>
 {% endblock %}
