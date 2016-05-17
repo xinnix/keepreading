@@ -51,9 +51,9 @@ function combineGiftCard(user, background) {
       },
     ], (err, image) => {
       if (err) reject(err);
-      image.write(`material/${user.openid}.png`, (err1, result) => {
+      image.write(`tmp/${user.openid}.png`, (err1, result) => {
         if (err1) reject(err1);
-        resolve(`material/${user.openid}.png`);
+        resolve(`tmp/${user.openid}.png`);
       });
     });
   });

@@ -1,27 +1,18 @@
 // const mongoose = require('mongoose');
 // // const User = mongoose.model('User');
 // // const Quote = mongoose.model('Quote');
-const mongoose = require('mongoose');
-const Material = mongoose.model('Material');
 const imgHelper = require('../helper/imgHelper.server');
 const userHelper = require('../helper/userHelper.server');
+const missionHelper = require('../helper/missionHelper.server');
+
 const wechatAPI = require('../config/wechatAPI');
 
-// 从数据库里获取任务合成任务卡
-function getMission() {
-  return Material.find({})
-  .sort('-created')
-  .limit(1)
-  .exec();
-}
+
 // 处理任务卡的图片回复
 function handleGetMession(message, req, res, next) {
-  getMission().then((material) => {
-    res.reply({
-      type: 'image',
-      content: {
-        mediaId: material[0].media_id,
-      },
+  missionHelper.getMission().then((materials) => {
+    res.reply(materials[0].content);
+    wechatAPI.sendVoice(message.FromUserName, materials[0].media_id, (err, result) => {
     });
   }).catch(err => {
     console.log(err);

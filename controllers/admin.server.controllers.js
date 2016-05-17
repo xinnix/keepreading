@@ -6,37 +6,37 @@ const wechatAPI = require('../config/wechatAPI');
 
 function materialAdd(req, res) {
   const material = new Material(req.body);
-  // wechatAPI.uploadMaterial(req.files.material.path, 'image', (err, result) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(400).send({
-  //       message: getErrorMessage(err),
-  //     });
-  //   } else {
-  //     // fs.unlink(req.files.material.path, function(err){
-  //     // });
-  //     material.media_id = result.media_id;
-  //     material.url = result.url;
-  //     material.save((err1) => {
-  //       if (err1) {
-  //         res.status(400).send({
-  //           message: getErrorMessage(err1),
-  //         });
-  //       } else {
-  //         res.redirect('/admin/material');
-  //       }
-  //     });
-  //   }
-  // });
-  material.save((err) => {
+  wechatAPI.uploadVoice(req.files.material.path, (err, result) => {
     if (err) {
+      console.log(err);
       res.status(400).send({
         message: getErrorMessage(err),
       });
     } else {
-      res.redirect('/admin/material');
+      // fs.unlink(req.files.material.path, function(err){
+      // });
+      material.media_id = result.media_id;
+      material.url = result.url;
+      material.save((err1) => {
+        if (err1) {
+          res.status(400).send({
+            message: getErrorMessage(err1),
+          });
+        } else {
+          res.redirect('/admin/material');
+        }
+      });
     }
   });
+  // material.save((err) => {
+  //   if (err) {
+  //     res.status(400).send({
+  //       message: getErrorMessage(err),
+  //     });
+  //   } else {
+  //     res.redirect('/admin/material');
+  //   }
+  // });
 }
 
 function materialList(req, res) {
@@ -48,7 +48,7 @@ function materialList(req, res) {
         message: getErrorMessage(err),
       });
     } else {
-      res.render('./material/material-list', { materials: materials });
+      res.render('./material/material-list', { materials });
     }
   });
 }
