@@ -1,6 +1,7 @@
 const Jimp = require('jimp');
 const async = require('async');
 const wechatAPI = require('../config/wechatAPI');
+const fs = require('fs');
 
 function combineMissionCard(mission, background) {
   //
@@ -133,14 +134,15 @@ function combineGiftCard(user, background) {
   //     console.log(err);
   // });
 }
-function uploadImg(file){
+function uploadImg(file) {
   return new Promise((resolve, reject) => {
     wechatAPI.uploadMedia(file, 'image', (err, result) => {
       if (err) {
         reject(err);
       } else {
-        // fs.unlink(req.files.material.path, function(err){
-        // });
+        fs.unlink(file, err1 => {
+          if (err1) reject(err1);
+        });
         resolve(result.media_id);
       }
     });

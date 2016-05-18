@@ -1,8 +1,8 @@
 const getErrorMessage = require('./core/errors.server.controllers').getErrorMessage;
-// import _ from 'lodash';
 const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
 const wechatAPI = require('../config/wechatAPI');
+const fs = require('fs');
 
 function materialAdd(req, res) {
   const material = new Material(req.body);
@@ -13,8 +13,13 @@ function materialAdd(req, res) {
         message: getErrorMessage(err),
       });
     } else {
-      // fs.unlink(req.files.material.path, function(err){
-      // });
+      fs.unlink(req.files.material.path, err1 => {
+        if (err1) {
+          res.status(400).send({
+            message: getErrorMessage(err1),
+          });
+        }
+      });
       material.media_id = result.media_id;
       material.url = result.url;
       material.save((err1) => {

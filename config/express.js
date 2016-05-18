@@ -4,7 +4,7 @@ const express = require('express');
 const swig = require('swig');
 const bodyParser = require('body-parser');
 const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart({ uploadDir: './material' });
+const multipartMiddleware = multipart({ uploadDir: './tmp' });
 
 module.exports = () => {
   const app = express();
