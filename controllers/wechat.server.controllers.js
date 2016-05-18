@@ -4,7 +4,7 @@
 const imgHelper = require('../helper/imgHelper.server');
 const userHelper = require('../helper/userHelper.server');
 const missionHelper = require('../helper/missionHelper.server');
-
+const keepLogic = require('../logic/keepLogic.server');
 const wechatAPI = require('../config/wechatAPI');
 
 
@@ -61,15 +61,10 @@ function handleEvent(message, req, res, next) {
 const handleVoice = function(message, req, res, next){
   res.reply('您的奖励卡正在制作中，请稍后');
   userHelper.getUserInfo(message, req, res, next)
-  .then(user => imgHelper.combineGiftCard(user, 'material/card1.png'))
+  .then(user => keepLogic.keepAday(user))
+  .then(user => imgHelper.combineKeepCard(user, 'material/card1.png'))
   .then(file => imgHelper.uploadImg(file))
   .then(mediaId => {
-    // res.reply({
-    //   type: 'image',
-    //   content: {
-    //     mediaId,
-    //   },
-    // });
     wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
     });
   })

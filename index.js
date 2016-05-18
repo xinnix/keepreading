@@ -3,8 +3,7 @@ const config = require('./config/config');
 const mongoose = require('mongoose');
 require('./models/material.server.model');
 require('./models/user.server.model');
-
-
+require('./models/keepRecord.server.model');
 
 const app = require('./config/express')();
 
