@@ -23,6 +23,8 @@ router.use('/', wechat(wechatConfig.token)
     }
 );
 
+router.get('/ranklist', wechatController.ranklist);
+
 module.exports = router;
 // .image(function (message, req, res, next) {
 //   // message为图片内容

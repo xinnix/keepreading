@@ -26,6 +26,20 @@ function getUserInfo(message) {
 }
 
 
+function getAllUserInfo() {
+  return new Promise((resolve, reject) => {
+    User.find().exec()
+    .then((users) => {
+      resolve(users);
+    })
+    .catch(err => {
+      reject(err);
+    });
+  });
+}
+
+
 module.exports = {
   getUserInfo,
+  getAllUserInfo,
 };

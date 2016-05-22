@@ -11,5 +11,7 @@ router.route('/material')
 router.route('/material/add')
     .get(admin.materialRender);
 
+router.get('/ranklist', admin.ranklist);
+
 
 module.exports = router;

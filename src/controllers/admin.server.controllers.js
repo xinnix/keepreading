@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
 const wechatAPI = require('../config/wechatAPI');
 const fs = require('fs');
+const co = require('co');
+const userHelper = require('../helper/userHelper.server');
 
 function materialAdd(req, res) {
   const material = new Material(req.body);
@@ -58,6 +60,16 @@ function materialList(req, res) {
   });
 }
 
+function ranklist(req, res) {
+  co(function * () {
+    try {
+      const users = yield userHelper.getAllUserInfo();
+      res.render('ranklist', { users });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
 
 function materialRender(req, res){
   res.render('./material/material-add');
@@ -74,6 +86,7 @@ module.exports = {
   materialAdd,
   materialList,
   materialRender,
+  ranklist,
 };
 
 

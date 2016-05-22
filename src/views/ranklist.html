@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style/ranklist.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title>排行榜</title>
+  </head>
+  <body>
+    <div class="table-responsive">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Avatar</th>
+          <th>Name</th>
+          <th>Keep</th>
+        </tr>
+      </thead>
+<tbody>
+
+  {% for user in users %}
+  <tr>
+    <td>{{loop.index}}</td>
+    <td><img src='{{user.headimgurl}}' alt="" height="30" width="30" /></td>
+    <td>{{user.nickname}}</td>
+    <td>{{user.keepdays}} day</td>
+  </tr>
+  {% endfor %}
+
+
+</tbody>
+  </table>
+</div>
+
+  </body>
+</html>
