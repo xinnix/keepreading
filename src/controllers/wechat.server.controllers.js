@@ -6,6 +6,7 @@ const userHelper = require('../helper/userHelper.server');
 const missionHelper = require('../helper/missionHelper.server');
 const keepLogic = require('../logic/keepLogic.server');
 const wechatAPI = require('../config/wechatAPI');
+const co = require('co');
 
 
 // 处理任务卡的图片回复
@@ -58,18 +59,24 @@ function handleEvent(message, req, res, next) {
 }
 
 
-const handleVoice = function(message, req, res, next){
-  res.reply('您的奖励卡正在制作中，请稍后');
-  userHelper.getUserInfo(message, req, res, next)
-  .then(user => keepLogic.keepAday(user))
-  .then(user => imgHelper.combineKeepCard(user, 'material/card1.png'))
-  .then(file => imgHelper.uploadImg(file))
-  .then(mediaId => {
-    wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
-    });
-  })
-  .catch(err => {
-    console.log(err);
+const handleVoice = function (message, req, res, next) {
+  co(function* () {
+    try {
+      const user = yield userHelper.getUserInfo(message, req, res, next);
+      const { iskeeped, iscontinue } = yield keepLogic.isKeeped(user);
+      if (iskeeped) {
+        res.reply('您今天已经打卡');
+      } else {
+        res.reply('您的奖励卡正在制作中，请稍后');
+        const keepuser = yield keepLogic.keepAday(user, iscontinue);
+        const file = yield imgHelper.combineKeepCard(keepuser, 'material/card1.png');
+        const mediaId = yield imgHelper.uploadImg(file);
+        wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   });
 };
 

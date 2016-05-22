@@ -4,6 +4,7 @@
   "description": "joy and will online",
   "main": "index.js",
   "scripts": {
+    "build": "babel -w src/ -d build -s",
     "test": "./node_modules/mocha/bin/mocha  -t 10000 --compilers js:babel-core/register --require ./test/testHelper.js 'test/**/*.@(js)'",
     "test-gulp": "./node_modules/gulp/bin/gulp.js mocha"
   },
@@ -13,16 +14,21 @@
     "async": "^2.0.0-rc.4",
     "body-parser": "^1.15.0",
     "chalk": "^1.1.1",
+    "co": "^4.6.0",
     "connect-multiparty": "^2.0.0",
     "express": "^4.0.0",
     "jimp": "^0.2.24",
     "lodash": "^4.6.0",
+    "moment": "^2.13.0",
     "mongoose": "^4.4.5",
     "swig": "^1.4.2",
     "wechat": "^2.0.3",
     "wechat-api": "^1.27.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
     "gulp": "^3.9.1",
     "gulp-mocha": "^2.2.0",
     "gulp-util": "^3.0.7",

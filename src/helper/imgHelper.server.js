@@ -2,6 +2,7 @@ const Jimp = require('jimp');
 const async = require('async');
 const wechatAPI = require('../config/wechatAPI');
 const fs = require('fs');
+const moment = require('moment');
 
 // function combineMissionCard(mission, background) {
 //
@@ -42,6 +43,24 @@ function combineKeepCard(user, background) {
           image.print(font, 190, 155, `${user.keepdays} Days`);
           image.print(font, 283, 155, `${user.max_keepdays} Days`);
           image.print(font, 375, 155, `${user.score}`);
+          cb(null, image);
+        });
+      },
+      (image, cb) => {
+        Jimp.loadFont(Jimp.FONT_SANS_128_WHITE).then(font => {
+          image.print(font, 65, 245, moment().format('hh:mm'));
+          cb(null, image);
+        });
+      },
+      (image, cb) => {
+        Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(font => {
+          image.print(font, 145, 370, moment().format('YYYY/MM/DD'));
+          cb(null, image);
+        });
+      },
+      (image, cb) => {
+        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(font => {
+          image.print(font, 165, 410, 'Never Give UP!');
           cb(null, image);
         });
       },

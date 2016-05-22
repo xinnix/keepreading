@@ -1,5 +1,5 @@
 
-const imghelper = require('../helper/imghelper.server');
+const imghelper = require('../src/helper/imghelper.server');
 const user =
 { keepdays: 0,
   max_keepdays: 0,
@@ -15,7 +15,7 @@ const user =
   openid: 'o3fzZsw_3ddwGDhlUufduKpWdUwg',
   _id: '5739d4c685b248ce575e36a8' };
 
-imghelper.combineGiftCard(user, 'material/card1.png')
+imghelper.combineKeepCard(user, 'material/card1.png')
 .then(file => {
   console.log(file);
 });

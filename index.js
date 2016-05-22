@@ -1,11 +1,11 @@
 
-const config = require('./config/config');
+const config = require('./src/config/config');
 const mongoose = require('mongoose');
-require('./models/material.server.model');
-require('./models/user.server.model');
-require('./models/keepRecord.server.model');
+require('./src/models/material.server.model');
+require('./src/models/user.server.model');
+require('./src/models/keepRecord.server.model');
 
-const app = require('./config/express')();
+const app = require('./src/config/express')();
 
 const db = mongoose.connect(config.db, function(err) {
   if (err) {

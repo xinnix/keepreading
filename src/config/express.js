@@ -10,12 +10,12 @@ module.exports = () => {
   const app = express();
   app.engine('html', swig.renderFile);
   app.set('view engine', 'html');
-  app.set('views', './views');
+  app.set('views', './src/views');
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
   app.use(bodyParser.json());
-  app.use(express.static('./public'));
+  app.use(express.static('public'));
 
   app.use('/wechat', wechatRoute);
   app.use('/admin', multipartMiddleware, adminRoute);
