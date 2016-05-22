@@ -7,7 +7,7 @@ const missionHelper = require('../helper/missionHelper.server');
 const keepLogic = require('../logic/keepLogic.server');
 const wechatAPI = require('../config/wechatAPI');
 const co = require('co');
-
+const moment = require('moment');
 
 // 处理任务卡的图片回复
 function handleGetMession(message, req, res, next) {
@@ -69,7 +69,7 @@ const handleVoice = function (message, req, res, next) {
       } else {
         res.reply('您的奖励卡正在制作中，请稍后');
         const keepuser = yield keepLogic.keepAday(user, iscontinue);
-        const file = yield imgHelper.combineKeepCard(keepuser, 'material/card1.png');
+        const file = yield imgHelper.combineKeepCard(keepuser, `material/card${moment().day()}.png`);
         const mediaId = yield imgHelper.uploadImg(file);
         wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
         });

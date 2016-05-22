@@ -74,7 +74,7 @@ function combineKeepCard(user, background) {
   });
 }
 
-// 上传keep卡素材用于发送给用户
+// 上传keep卡素材到微信服务器用于发送给用户
 function uploadImg(file) {
   return new Promise((resolve, reject) => {
     wechatAPI.uploadMedia(file, 'image', (err, result) => {
