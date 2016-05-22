@@ -26,9 +26,11 @@ function getUserInfo(message) {
 }
 
 
-function getAllUserInfo() {
+function getAllUserRank() {
   return new Promise((resolve, reject) => {
-    User.find().exec()
+    User.find()
+    .sort('-keepdays')
+    .exec()
     .then((users) => {
       resolve(users);
     })
@@ -41,5 +43,5 @@ function getAllUserInfo() {
 
 module.exports = {
   getUserInfo,
-  getAllUserInfo,
+  getAllUserRank,
 };

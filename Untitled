@@ -10,9 +10,9 @@
           "name":"每日任务",
           "key":"GET_MISSION"
       },{
-          "type":"click",
+          "type":"view",
           "name":"排行榜",
-          "key":"GET_RANK"
+          "url":"https://xinnix.pagekite.me/admin/ranklist"
       }
 
       ]

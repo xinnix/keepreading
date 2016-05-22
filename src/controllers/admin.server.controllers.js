@@ -63,7 +63,7 @@ function materialList(req, res) {
 function ranklist(req, res) {
   co(function * () {
     try {
-      const users = yield userHelper.getAllUserInfo();
+      const users = yield userHelper.getAllUserRank();
       res.render('ranklist', { users });
     } catch (err) {
       console.log(err);
