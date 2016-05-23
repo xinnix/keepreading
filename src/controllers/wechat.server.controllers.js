@@ -80,17 +80,7 @@ const handleVoice = function (message, req, res, next) {
   });
 };
 
-function ranklist(req, res) {
-  co(function * (){
-    try {
-      const users = yield userHelper.getAllUserInfo();
-      res.render('ranklist', {users});
-    } catch(err) {
-      console.log(err);
-    }
-  });
-
-}
 
 
-module.exports = { handleText, handleEvent, handleVoice, ranklist };
+
+module.exports = { handleText, handleEvent, handleVoice };

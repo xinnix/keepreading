@@ -30,6 +30,12 @@ function isKeeped(user) {
   });
 }
 
+
+function getNewLevel(user){
+  const level = parseInt(user.keepdays/7)+1;
+  return level;
+}
+
 function keepAday(user, iscontinue) {
   return new Promise((resolve, reject) => {
     const keepRecord = new KeepRecord({ user: user._id });
@@ -40,6 +46,9 @@ function keepAday(user, iscontinue) {
     User.findOne({ _id: user._id })
     .then(userk => {
       userk.keepdays += 1;
+      userk.score += 10;
+      const level = getNewLevel(userk);
+      userk.level = `R${level}`;
       if (iscontinue){
         userk.max_keepdays += 1;
       }else{

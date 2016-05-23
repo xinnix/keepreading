@@ -1,6 +1,6 @@
 module.exports = {
   port: process.env.PORT || 3000,
-  db: 'mongodb://lightclass:lightclass@120.25.227.156:29017/keepreading',
+  db: process.env.LIGHTCLASS_DB_URI || 'mongodb://localhost/keepreading',
   wechatConfig: {
     token: 'helloworld',
     appid: 'wx45da6ee61de93b35',
@@ -10,4 +10,4 @@ module.exports = {
     encodingAESKey: 'e4miuSxQNBIAFYuyi5ky0m1R79oV950ijnjKOtPSXYG',
   },
 };
-// db: process.env.LIGHTCLASS_DB_URI || 'mongodb://localhost/keepreading'
+// db: 'mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass',
