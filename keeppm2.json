@@ -1,0 +1,12 @@
+{
+    "apps": [{
+        "script": "index.js",
+        "name": "keepreading",
+        "watch": false,
+        "env_production": {
+          "NODE_ENV": "production",
+          "PORT": 8000,
+          "LIGHTCLASS_DB_URI" : "mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass",
+        }
+    }]
+}
