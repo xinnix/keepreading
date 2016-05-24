@@ -4,6 +4,7 @@
   "description": "joy and will online",
   "main": "index.js",
   "scripts": {
+    "production": "PORT=5555 LIGHTCLASS_DB_URI=mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass node index.js",
     "build": "babel -w src/ -d build -s",
     "test": "./node_modules/mocha/bin/mocha  -t 10000 --compilers js:babel-core/register --require ./test/testHelper.js 'test/**/*.@(js)'",
     "test-gulp": "./node_modules/gulp/bin/gulp.js mocha"

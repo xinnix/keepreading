@@ -16,13 +16,13 @@ function handleGetMession(message, req, res, next) {
       const user = yield userHelper.getUserInfo(message, req, res, next);
       const { iskeeped, iscontinue } = yield keepLogic.isKeeped(user);
       if (iskeeped) {
-        res.reply('今日已获得Grit卡');
+        res.reply('今日已获得Grit卡,请及时保存');
         const keeprecord = yield keepLogic.getNewestKeeprecord(user);
         wechatAPI.sendImage(message.FromUserName, keeprecord.keep_card, (err, result) => {
         });
       } else {
         const materials = yield missionHelper.getMission();
-        res.reply('领取任务成功，跟读请阅读以下内容，语音回复至订阅号获取今日Grit卡');
+        res.reply('领取任务成功，请阅读以下内容，语音回复至订阅号获取今日Grit卡');
         wechatAPI.sendText(message.FromUserName, materials[0].content, (err, result) => {
         });
         wechatAPI.sendVoice(message.FromUserName, materials[0].media_id, (err, result) => {
@@ -79,14 +79,14 @@ const handleVoice = function (message, req, res, next) {
       const user = yield userHelper.getUserInfo(message, req, res, next);
       const { iskeeped, iscontinue } = yield keepLogic.isKeeped(user);
       if (iskeeped) {
-        res.reply('您今天已经打卡');
+        res.reply('今日已经打卡，明天再来吧');
       } else {
         res.reply('系统正在处理，请稍后');
         const keepuser = yield keepLogic.keepAday(user, iscontinue);
         const file = yield imgHelper.combineKeepCard(keepuser, `material/card${moment().day()}.png`);
         const mediaId = yield imgHelper.uploadImg(file);
         const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);
-        wechatAPI.sendText(message.FromUserName, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！加油！`, (err, result) => {
+        wechatAPI.sendText(message.FromUserName, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
         });
         wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
         });
