@@ -36,6 +36,36 @@ function getNewLevel(user){
   return level;
 }
 
+function  saveKeepCard(user,mediaId){
+  return new Promise((resolve, reject) => {
+    KeepRecord
+    .find({ user: user._id })
+    .sort('-created')
+    .exec()
+    .then(keeprecords => {
+      keeprecords[0].keep_card = mediaId;
+      keeprecords[0].save((err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      });
+    });
+  });
+}
+
+function getNewestKeeprecord(user){
+  return new Promise((resolve, reject) => {
+    KeepRecord
+    .find({ user: user._id })
+    .sort('-created')
+    .exec()
+    .then(keeprecords => {
+      resolve(keeprecords[0]);
+    }).catch(err => {
+      reject(err);
+    });
+  });
+}
+
 function keepAday(user, iscontinue) {
   return new Promise((resolve, reject) => {
     const keepRecord = new KeepRecord({ user: user._id });
@@ -68,4 +98,6 @@ function keepAday(user, iscontinue) {
 module.exports = {
   keepAday,
   isKeeped,
+  saveKeepCard,
+  getNewestKeeprecord,
 };

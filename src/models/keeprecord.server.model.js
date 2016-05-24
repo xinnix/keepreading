@@ -7,6 +7,7 @@ const KeepRecordSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  keep_card: String,
   created: {
     type: Date,
     default: Date.now,
