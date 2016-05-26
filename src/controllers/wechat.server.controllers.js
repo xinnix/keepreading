@@ -34,12 +34,30 @@ function handleGetMession(message, req, res, next) {
   });
 }
 
+function handleGetPlan(message, req, res, next) {
+  co(function *(){
+    try {
+      const [media1,media2] = yield [imgHelper.uploadImgNotDel('material/GHS1.png'),imgHelper.uploadImgNotDel('material/GHS2.png')];
+      res.reply({
+        type: 'image',
+        content: {
+          mediaId: media2,
+        },
+      });
+      wechatAPI.sendImage(message.FromUserName, media1, (err, result) => {
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
 
 // 处理单击按钮事件
 function handleEventClick(message, req, res, next) {
   switch (message.EventKey) {
     case 'GET_PLAN':
-      res.reply('获取计划啦啦');
+      handleGetPlan(message, req, res, next);
       break;
     case 'GET_MISSION':
       handleGetMession(message, req, res, next);
@@ -51,6 +69,7 @@ function handleEventClick(message, req, res, next) {
       res.reply('没匹配上啦啦');
   }
 }
+
 
 function handleText(message, req, res, next) {
   // wechatAPI.sendText(message.FromUserName, 'Hello world', (err, result) => {

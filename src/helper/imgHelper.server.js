@@ -90,7 +90,21 @@ function uploadImg(file) {
   });
 }
 
+function uploadImgNotDel(file) {
+  return new Promise((resolve, reject) => {
+    wechatAPI.uploadMedia(file, 'image', (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.media_id);
+      }
+    });
+  });
+}
+
+
 module.exports = {
   combineKeepCard,
   uploadImg,
+  uploadImgNotDel,
 };

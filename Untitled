@@ -2,7 +2,7 @@
      "button":[
      {
           "type":"click",
-          "name":"轻课计划",
+          "name":"了解GHS",
           "key":"GET_PLAN"
       },
       {
@@ -12,7 +12,7 @@
       },{
           "type":"view",
           "name":"排行榜",
-          "url":"http://120.25.227.156/admin/ranklist"
+          "url":"http://wechat.xinnix.cc/admin/ranklist"
       }
 
       ]
