@@ -41,10 +41,10 @@ function handleGetPlan(message, req, res, next) {
       res.reply({
         type: 'image',
         content: {
-          mediaId: media2,
+          mediaId: media1,
         },
       });
-      wechatAPI.sendImage(message.FromUserName, media1, (err, result) => {
+      wechatAPI.sendImage(message.FromUserName, media2, (err, result) => {
       });
     } catch (err) {
       console.log(err);
