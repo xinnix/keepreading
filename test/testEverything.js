@@ -1,5 +1,7 @@
 
 // const imghelper = require('../src/helper/imghelper.server');
+require('../src/models/material.server.model.js');
+const missionHelper = require('../src/helper/missionHelper.server');
 // const user =
 // { keepdays: 0,
 //   max_keepdays: 0,
@@ -18,4 +20,4 @@
 // .then(file => {
 //   console.log(file);
 // });
-console.log(parseInt(15/7));
+missionHelper.getRandomMission('R1');

@@ -8,7 +8,7 @@ const userHelper = require('../helper/userHelper.server');
 
 function materialAdd(req, res) {
   const material = new Material(req.body);
-  wechatAPI.uploadVoice(req.files.material.path, (err, result) => {
+  wechatAPI.uploadMaterial(req.files.material.path, 'voice', (err, result) => {
     if (err) {
       console.log(err);
       res.status(400).send({

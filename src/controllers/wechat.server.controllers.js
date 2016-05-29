@@ -21,11 +21,11 @@ function handleGetMession(message, req, res, next) {
         wechatAPI.sendImage(message.FromUserName, keeprecord.keep_card, (err, result) => {
         });
       } else {
-        const materials = yield missionHelper.getMission();
+        const material = yield missionHelper.getRandomMission(user.level);
         res.reply('领取任务成功，请阅读以下内容，语音回复至订阅号获取今日Grit卡');
-        wechatAPI.sendText(message.FromUserName, materials[0].content, (err, result) => {
+        wechatAPI.sendText(message.FromUserName, material.content, (err, result) => {
         });
-        wechatAPI.sendVoice(message.FromUserName, materials[0].media_id, (err, result) => {
+        wechatAPI.sendVoice(message.FromUserName, material.media_id, (err, result) => {
         });
       }
     } catch (err) {
