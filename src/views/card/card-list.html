@@ -10,7 +10,6 @@
                 <tr>
                   <th>卡片名</th>
                   <th>等级</th>
-                  <th>备注</th>
                   <th>预览</th>
                   <th>操作</th>
                 </tr>
@@ -20,7 +19,6 @@
                 <tr>
                   <td>{{card.title}}</td>
                   <td>{{card.level}}</td>
-                  <td>{{card.memo}}</td>
                   <td><img src="/img/{{card.filename}}" alt="" style="height:40px;"/></td>
                   <td><a class="btn btn-danger" href="/admin/card/del?card_id={{card._id.toString()}}&card_path={{card.filepath}}">删除</a></td>
                 </tr>
