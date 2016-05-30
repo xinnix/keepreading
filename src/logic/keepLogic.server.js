@@ -1,14 +1,21 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const KeepRecord = mongoose.model('KeepRecord');
+const Card = mongoose.model('Card');
 const moment = require('moment');
 
-function changeUserState(user){
-
-}
-
-function changeLevel(user){
-
+function getRandomCard(){
+  return new Promise((resolve, reject) => {
+    Card.count().exec((err, count) => {
+      if (err) reject(err);
+      const random = Math.floor(Math.random() * count);
+      Card.findOne().skip(random).exec().then(result => {
+        resolve(result);
+      }).catch(err1 => {
+        reject(err1);
+      });
+    });
+  });
 }
 
 
@@ -100,4 +107,5 @@ module.exports = {
   isKeeped,
   saveKeepCard,
   getNewestKeeprecord,
+  getRandomCard,
 };

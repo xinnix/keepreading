@@ -3,22 +3,24 @@
 {% block content %}
 
     <div class="container">
-    <h1>推送内容列表</h1>
+    <h1>卡片素材列表</h1>
     <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>作者</th>
-                  <th>内容</th>
-                  <th>标准读音</th>
+                  <th>卡片名</th>
+                  <th>简介</th>
+                  <th>等级</th>
+                  <th>路径</th>
                 </tr>
               </thead>
               <tbody >
-                {% for quote in quotes %}
+                {% for card in cards %}
                 <tr>
-                  <td>{{quote.author}}</td>
-                  <td>{{quote.content}}</td>
-                  <td>{{quote.voice_url}}</td>
+                  <td>{{card.title}}</td>
+                  <td>{{card.memo}}</td>
+                  <td>{{card.level}}</td>
+                  <td>{{card.filepath}}</td>
                 </tr>
                 {% endfor %}
               </tbody>

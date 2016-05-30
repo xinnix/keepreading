@@ -1,6 +1,8 @@
 const getErrorMessage = require('./core/errors.server.controllers').getErrorMessage;
 const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
+const Card = mongoose.model('Card');
+
 const wechatAPI = require('../config/wechatAPI');
 const fs = require('fs');
 const co = require('co');
@@ -71,14 +73,40 @@ function ranklist(req, res) {
   });
 }
 
-function materialRender(req, res){
+function materialRender(req, res) {
   res.render('./material/material-add');
 }
-function quote_add(req, res) {
 
+function cardAdd(req, res) {
+  const card = new Card(req.body);
+  card.filepath = req.files.card.path;
+  card.save((err1) => {
+    if (err1) {
+      res.status(400).send({
+        message: getErrorMessage(err1),
+      });
+    } else {
+      res.redirect('/admin/card');
+    }
+  });
 }
-function quote_add(req, res) {
 
+function cardList(req, res) {
+  Card.find({})
+  .sort('-created')
+  .exec((err, cards) => {
+    if (err) {
+      res.status(400).send({
+        message: getErrorMessage(err),
+      });
+    } else {
+      res.render('./card/card-list', { cards });
+    }
+  });
+}
+
+function cardRender(req, res) {
+  res.render('./card/card-add');
 }
 
 
@@ -87,6 +115,9 @@ module.exports = {
   materialList,
   materialRender,
   ranklist,
+  cardAdd,
+  cardList,
+  cardRender,
 };
 
 

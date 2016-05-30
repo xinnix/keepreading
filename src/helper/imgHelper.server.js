@@ -48,7 +48,7 @@ function combineKeepCard(user, background) {
       },
       (image, cb) => {
         Jimp.loadFont(Jimp.FONT_SANS_128_WHITE).then(font => {
-          image.print(font, 65, 245, moment().format('hh:mm'));
+          image.print(font, 65, 245, moment().format('HH:mm'));
           cb(null, image);
         });
       },
@@ -101,7 +101,6 @@ function uploadImgNotDel(file) {
     });
   });
 }
-
 
 module.exports = {
   combineKeepCard,

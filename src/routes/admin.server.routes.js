@@ -11,6 +11,14 @@ router.route('/material')
 router.route('/material/add')
     .get(admin.materialRender);
 
+
+router.route('/card')
+      .post(admin.cardAdd)
+      .get(admin.cardList);
+
+router.route('/card/add')
+        .get(admin.cardRender);
+
 router.get('/ranklist', admin.ranklist);
 
 

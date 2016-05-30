@@ -30,6 +30,7 @@ function handleGetMession(message, req, res, next) {
       }
     } catch (err) {
       console.log(err);
+      res.reply('系统出错，稍后尝试！')
     }
   });
 }
@@ -100,9 +101,10 @@ const handleVoice = function (message, req, res, next) {
       if (iskeeped) {
         res.reply('今日已经打卡，明天再来吧');
       } else {
-        res.reply('系统正在处理，请稍后');
+        res.reply('专属Grit卡生成中....');
         const keepuser = yield keepLogic.keepAday(user, iscontinue);
-        const file = yield imgHelper.combineKeepCard(keepuser, `material/card${moment().day()}.png`);
+        const background = yield keepLogic.getRandomCard();
+        const file = yield imgHelper.combineKeepCard(keepuser, background.filepath);
         const mediaId = yield imgHelper.uploadImg(file);
         const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);
         wechatAPI.sendText(message.FromUserName, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
