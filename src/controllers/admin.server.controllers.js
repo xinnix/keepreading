@@ -2,7 +2,7 @@ const getErrorMessage = require('./core/errors.server.controllers').getErrorMess
 const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
 const Card = mongoose.model('Card');
-
+const path = require('path');
 const wechatAPI = require('../config/wechatAPI');
 const fs = require('fs');
 const co = require('co');
@@ -62,6 +62,23 @@ function materialList(req, res) {
   });
 }
 
+function materialDel(req, res) {
+  const materialId = req.query.material_id;
+  const materialMediaId = req.query.material_mediaid;
+  wechatAPI.removeMaterial(materialMediaId, (err) => {
+    if (err) console.log(err);
+    Material.remove({ _id: materialId }, (err1) => {
+      if (err1) {
+        res.status(400).send({
+          message: getErrorMessage(err),
+        });
+      } else {
+        res.redirect('/admin/material');
+      }
+    });
+  });
+}
+
 function ranklist(req, res) {
   co(function * () {
     try {
@@ -80,6 +97,7 @@ function materialRender(req, res) {
 function cardAdd(req, res) {
   const card = new Card(req.body);
   card.filepath = req.files.card.path;
+  card.filename = path.basename(card.filepath);
   card.save((err1) => {
     if (err1) {
       res.status(400).send({
@@ -87,6 +105,28 @@ function cardAdd(req, res) {
       });
     } else {
       res.redirect('/admin/card');
+    }
+  });
+}
+
+function cardDel(req, res) {
+  const cardId = req.query.card_id;
+  const cardPath = req.query.card_path;
+  fs.unlink(cardPath, (err) => {
+    if (err) {
+      res.status(400).send({
+        message: getErrorMessage(err),
+      });
+    } else {
+      Card.remove({ _id: cardId }, (err1) => {
+        if (err) {
+          res.status(400).send({
+            message: getErrorMessage(err1),
+          });
+        } else {
+          res.redirect('/admin/card');
+        }
+      });
     }
   });
 }
@@ -114,8 +154,10 @@ module.exports = {
   materialAdd,
   materialList,
   materialRender,
+  materialDel,
   ranklist,
   cardAdd,
+  cardDel,
   cardList,
   cardRender,
 };

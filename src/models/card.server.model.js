@@ -7,6 +7,7 @@ const CardSchema = new Schema({
   memo: String,
   level: String,
   special: String,
+  filename: String,
   created: {
     type: Date,
     default: Date.now,

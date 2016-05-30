@@ -9,18 +9,18 @@
               <thead>
                 <tr>
                   <th>题目</th>
-                  <th>内容</th>
                   <th>等级</th>
-                  <th>media_id</th>
+                  <th>内容</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody >
                 {% for material in materials %}
                 <tr>
                   <td>{{material.title}}</td>
-                  <td>{{material.content}}</td>
                   <td>{{material.level}}</td>
-                  <td>{{material.media_id}}</td>
+                  <td>{{material.content}}</td>
+                  <td><a class="btn btn-danger" href="/admin/material/del?material_id={{material._id.toString()}}&material_mediaid={{material.media_id}}">删除</a></td>
                 </tr>
                 {% endfor %}
               </tbody>

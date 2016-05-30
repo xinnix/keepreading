@@ -10,7 +10,8 @@ router.route('/material')
 
 router.route('/material/add')
     .get(admin.materialRender);
-
+router.route('/material/del')
+    .get(admin.materialDel);
 
 router.route('/card')
       .post(admin.cardAdd)
@@ -18,6 +19,9 @@ router.route('/card')
 
 router.route('/card/add')
         .get(admin.cardRender);
+
+router.route('/card/del')
+        .get(admin.cardDel);
 
 router.get('/ranklist', admin.ranklist);
 

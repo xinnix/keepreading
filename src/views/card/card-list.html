@@ -9,18 +9,20 @@
               <thead>
                 <tr>
                   <th>卡片名</th>
-                  <th>简介</th>
                   <th>等级</th>
-                  <th>路径</th>
+                  <th>备注</th>
+                  <th>预览</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody >
                 {% for card in cards %}
                 <tr>
                   <td>{{card.title}}</td>
-                  <td>{{card.memo}}</td>
                   <td>{{card.level}}</td>
-                  <td>{{card.filepath}}</td>
+                  <td>{{card.memo}}</td>
+                  <td><img src="/img/{{card.filename}}" alt="" style="height:40px;"/></td>
+                  <td><a class="btn btn-danger" href="/admin/card/del?card_id={{card._id.toString()}}&card_path={{card.filepath}}">删除</a></td>
                 </tr>
                 {% endfor %}
               </tbody>

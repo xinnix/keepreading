@@ -58,12 +58,6 @@ function combineKeepCard(user, background) {
           cb(null, image);
         });
       },
-      (image, cb) => {
-        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(font => {
-          image.print(font, 165, 410, 'Never Give UP!');
-          cb(null, image);
-        });
-      },
     ], (err, image) => {
       if (err) reject(err);
       image.write(`tmp/${user.openid}.png`, (err1, result) => {
