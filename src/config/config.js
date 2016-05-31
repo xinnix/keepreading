@@ -1,6 +1,6 @@
 module.exports = {
-  port: process.env.PORT || 3000,
-  db: process.env.LIGHTCLASS_DB_URI || 'mongodb://localhost/keepreading',
+  port: process.env.KKEP_PORT || 3000,
+  db: process.env.KEEP_DB_URI || 'mongodb://localhost/keepreading',
   wechatConfig: {
     token: 'helloworld',
     appid: 'wxb3762a929cf9e070',

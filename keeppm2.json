@@ -5,8 +5,8 @@
         "watch": false,
         "env_production": {
           "NODE_ENV": "production",
-          "PORT": 5555,
-          "LIGHTCLASS_DB_URI" : "mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass",
+          "KEEP_PORT": 5555,
+          "KEEP_DB_URI" : "mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass",
         }
     }]
 }
