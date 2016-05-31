@@ -76,7 +76,7 @@ function handleText(message, req, res, next) {
   // wechatAPI.sendText(message.FromUserName, 'Hello world', (err, result) => {
   //   console.log(result);
   // });
-  res.reply('发送消息');
+  res.reply2CustomerService();
 }
 
 function handleEvent(message, req, res, next) {

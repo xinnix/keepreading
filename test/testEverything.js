@@ -1,7 +1,12 @@
-
+// const wechatAPI = require('../src/config/wechatAPI');
+//
+// wechatAPI.addKfAccount('xinnix@gh_f781e89105fa', 'xinnix', '123456', (err, result) => {
+//   if (err) console.log('err', err);
+//   console.log('result', result);
+// });
 // const imghelper = require('../src/helper/imghelper.server');
-require('../src/models/material.server.model.js');
-const missionHelper = require('../src/helper/missionHelper.server');
+// require('../src/models/material.server.model.js');
+// const missionHelper = require('../src/helper/missionHelper.server');
 // const user =
 // { keepdays: 0,
 //   max_keepdays: 0,
@@ -20,4 +25,13 @@ const missionHelper = require('../src/helper/missionHelper.server');
 // .then(file => {
 //   console.log(file);
 // });
-missionHelper.getRandomMission('R1');
+// missionHelper.getRandomMission('R1');
+let appid = 1;
+let appsecret = 1;
+
+if (process.env.NODE_ENV === 'production') {
+  appid = 2;
+  appsecret = 2;
+}
+
+console.log(appid, appsecret);
