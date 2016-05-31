@@ -1,5 +1,5 @@
 module.exports = {
-  port: process.env.KKEP_PORT || 3000,
+  port: process.env.KEEP_PORT || 3000,
   db: process.env.KEEP_DB_URI || 'mongodb://localhost/keepreading',
   wechatConfig: {
     token: 'helloworld',

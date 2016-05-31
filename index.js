@@ -8,7 +8,8 @@ require('./src/models/card.server.model');
 
 
 const app = require('./src/config/express')();
-
+console.log(config.db);
+console.log(config.port);
 const db = mongoose.connect(config.db, function(err) {
   if (err) {
 		console.error('Could not connect to MongoDB!');
