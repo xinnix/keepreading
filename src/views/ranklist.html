@@ -32,7 +32,7 @@
                 <tr v-for="user in users">
                     <td>{% raw %}{{$index+1}}{% endraw %}</td>
                     <td><img v-bind:src='{% raw %}user.headimgurl{% endraw %}' alt="" style="width:40px;height:40px;"/></td>
-                    <td>{% raw %}{{user.nickname}}{% endraw %}</td>
+                    <td>{% raw %}{{user.nickname | truncate}}{% endraw %}</td>
                     <td class="day">{% raw %}{{user.keepdays}}{% endraw %}day</td>
                     <td>
                         <span  class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red;font-size:20px;"></span>
@@ -50,7 +50,7 @@
   </div>
   <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+  <script src="http://cdn.bootcss.com/vue/1.0.24/vue.js"></script>
   <script type="text/javascript">
     var example = new Vue({
       el: '#rank',
@@ -59,6 +59,11 @@
       },
       created: function(){
         this.fetchData()
+      },
+      filters: {
+        truncate: function (v) {
+          return v.length > 16 ? v.slice(0,16)+'...' : v;
+        },
       },
       methods: {
         fetchData: function(){
