@@ -1,42 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style/ranklist.css">
-    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
     <title>排行榜</title>
-  </head>
-  <body>
+
+</head>
+
+<body>
+  <div id="rank">
+    <div class="bg">
+    </div>
     <div class="table-responsive">
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Avatar</th>
-          <th>Name</th>
-          <th>Keep</th>
-        </tr>
-      </thead>
-<tbody>
+        <table class="table rank table-striped">
+            <thead>
+                <tr>
+                    <th width="10%">Rank</th>
+                    <th width="20%">Avatar</th>
+                    <th width="40%">Name</th>
+                    <th width="20%">Keep</th>
+                    <th width="10%">Like</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="user in users">
+                    <td>{% raw %}{{$index+1}}{% endraw %}</td>
+                    <td><img v-bind:src='{% raw %}user.headimgurl{% endraw %}' alt="" style="width:40px;height:40px;"/></td>
+                    <td>{% raw %}{{user.nickname}}{% endraw %}</td>
+                    <td class="day">{% raw %}{{user.keepdays}}{% endraw %}day</td>
+                    <td>
+                        <span  class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red;font-size:20px;"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-  {% for user in users %}
-  <tr>
-    <td>{{loop.index}}</td>
-    <td><img src='{{user.headimgurl}}' alt="" height="30" width="30" /></td>
-    <td>{{user.nickname}}</td>
-    <td>{{user.keepdays}} day</td>
-  </tr>
-  {% endfor %}
+    </div>
+    <!-- <ul id="example-1">
+      <li v-for="item in items">
+        {% raw %}{{item.message}}{% endraw %}
+      </li>
+    </ul> -->
+  </div>
+  <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+  <script type="text/javascript">
+    var example = new Vue({
+      el: '#rank',
+      data: {
+        users: null,
+      },
+      created: function(){
+        this.fetchData()
+      },
+      methods: {
+        fetchData: function(){
+          var self = this;
+          $.getJSON('/admin/rank',function(data, result){
+            self.users = data;
+          });
+        },
+        like: function(){
+          $.get('/admin/like',function(data, result){
+            self.users = data;
+          });
+        },
+      }
+    });
+    // var example1 = new Vue({
+    //   el: '#example-1',
+    //   data: {
+    //     items: [
+    //       { message: 'Foo' },
+    //     ]
+    //   }
+    // })
+
+  </script>
+</body>
 
 
-</tbody>
-  </table>
-</div>
-
-  </body>
 </html>

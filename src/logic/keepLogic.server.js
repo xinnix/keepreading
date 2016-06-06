@@ -4,7 +4,7 @@ const KeepRecord = mongoose.model('KeepRecord');
 const Card = mongoose.model('Card');
 const moment = require('moment');
 
-function getRandomCard(){
+function getRandomCard() {
   return new Promise((resolve, reject) => {
     Card.count().exec((err, count) => {
       if (err) reject(err);
@@ -26,7 +26,7 @@ function isKeeped(user) {
     .sort('-created')
     .exec()
     .then(keeprecords => {
-      if (keeprecords.length === 0) resolve(false);
+      if (keeprecords.length === 0) resolve(false, true);
       const theday = moment(keeprecords[0].created);
       const iskeeped = theday.isSame(Date.now(), 'day');
       const iscontinue = theday.add(1, 'days').isSame(Date.now(), 'day');
@@ -37,10 +37,23 @@ function isKeeped(user) {
   });
 }
 
+// 根据用户坚持天数获取用户等级
+function getNewLevel(user) {
+  const maxlevel = 10;
+  const levelDay = [21, 31, 46, 66, 91, 121, 156, 196, 241, 291];
+  for (const key in levelDay) {
+    if (user.keepdays < levelDay[key]) return key;
+  }
+  return maxlevel;
+}
 
-function getNewLevel(user){
-  const level = parseInt(user.keepdays/7)+1;
-  return level;
+function getNewScore(user) {
+  const scoreDay = [7, 14, 21, 30, 60, 100, 150, 210, 280, 365];
+  const revenue = [5, 15, 30, 50, 75, 105, 140, 175, 215, 300];
+  for (const key in scoreDay) {
+    if (user.cont_keepdays === scoreDay[key]) return revenue[key];
+  }
+  return 1;
 }
 
 function  saveKeepCard(user,mediaId){
@@ -73,6 +86,8 @@ function getNewestKeeprecord(user){
   });
 }
 
+
+
 function keepAday(user, iscontinue) {
   return new Promise((resolve, reject) => {
     const keepRecord = new KeepRecord({ user: user._id });
@@ -83,13 +98,14 @@ function keepAday(user, iscontinue) {
     User.findOne({ _id: user._id })
     .then(userk => {
       userk.keepdays += 1;
-      userk.score += 10;
+      userk.score += getNewScore(userk);
       const level = getNewLevel(userk);
       userk.level = `R${level}`;
       if (iscontinue){
-        userk.max_keepdays += 1;
+        userk.cont_keepdays += 1;
+        if(userk.cont_keepdays > userk.max_keepdays) userk.max_keepdays = userk.cont_keepdays;
       }else{
-        userk.max_keepdays = 1;
+        userk.cont_keepdays = 1;
       }
       return userk.save();
     })

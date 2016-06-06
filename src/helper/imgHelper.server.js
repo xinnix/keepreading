@@ -22,7 +22,7 @@ function combineKeepCard(user, background) {
         Jimp.read(user.headimgurl, (err, head) => {
           if (err) reject(err);
           head.resize(120, 120);
-          image.composite(head, 20, 20);
+          image.composite(head, 20, 25);
           cb(null, image);
         });
       },
@@ -33,15 +33,9 @@ function combineKeepCard(user, background) {
         });
       },
       (image, cb) => {
-        Jimp.loadFont(Jimp.FONT_SANS_8_WHITE).then(font => {
-          image.print(font, 2, 2, user.nickname);
-          cb(null, image);
-        });
-      },
-      (image, cb) => {
         Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(font => {
           image.print(font, 190, 155, `${user.keepdays} Days`);
-          image.print(font, 283, 155, `${user.max_keepdays} Days`);
+          image.print(font, 283, 155, `${user.cont_keepdays} Days`);
           image.print(font, 375, 155, `${user.score}`);
           cb(null, image);
         });

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container" id="materiallist">
     <h1>文章列表</h1>
     <div class="table-responsive">
             <table class="table table-hover">
@@ -11,6 +11,7 @@
                   <th>题目</th>
                   <th>等级</th>
                   <th>内容</th>
+                  <th>选中</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -20,6 +21,11 @@
                   <td>{{material.title}}</td>
                   <td>{{material.level}}</td>
                   <td>{{material.content}}</td>
+                  <td><div class="checkbox">
+                    <label>
+                      <input type="checkbox" value={{material.selected}} onclick=selectit({{material._id.toString()}})>
+                    </label>
+                  </div></td>
                   <td><a class="btn btn-danger" href="/admin/material/del?material_id={{material._id.toString()}}&material_mediaid={{material.media_id}}">删除</a></td>
                 </tr>
                 {% endfor %}
@@ -27,5 +33,17 @@
             </table>
           </div>
     </div>
+
+    <script type="text/javascript">
+    $(function() {
+      function selectit(id){
+        var select = $()
+        $.getJSON('/admin/material/select?material_id='+id+'selected='+, function (data, status){
+          alert('修改成功')
+        })
+      }
+
+    });
+    </script>
 
 {% endblock %}

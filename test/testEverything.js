@@ -26,12 +26,32 @@
 //   console.log(file);
 // });
 // missionHelper.getRandomMission('R1');
-let appid = 1;
-let appsecret = 1;
-
-if (process.env.NODE_ENV === 'production') {
-  appid = 2;
-  appsecret = 2;
+// let appid = 1;
+// let appsecret = 1;
+//
+// if (process.env.NODE_ENV === 'production') {
+//   appid = 2;
+//   appsecret = 2;
+// }
+//
+// console.log(appid, appsecret);
+// function abc(keepdays){
+//   const levelDay = [21, 31, 46, 66, 91, 121, 156, 196, 241, 291];
+//   for (let key in levelDay){
+//     if( keepdays < levelDay[key]){
+//       return key;
+//     }
+//   }
+// }
+function getNewScore(cont_keepdays) {
+  const scoreDay = [7, 14, 21, 30, 60, 100, 150, 210, 280, 365];
+  const revenue = [5, 15, 30 ,50, 75, 105, 140, 175, 215, 300];
+  for (const key in scoreDay) {
+    if (cont_keepdays == scoreDay[key]) return revenue[key];
+  }
+  return 1;
 }
 
-console.log(appid, appsecret);
+
+
+console.log(getNewScore(280));

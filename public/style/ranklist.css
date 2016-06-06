@@ -1,4 +1,14 @@
-.table th, .table td {
+
+.table thead tr th ,
+.table tbody tr td {
 	text-align: center;
-	height:38px;
+	vertical-align: middle;
+	font-size: 16px;
+}
+.table img {
+	border-radius: 5px;
+}
+.bg {
+	height: 200px;
+	background: #00FF00 url(../pageimg/rankbg.png) no-repeat fixed top;
 }

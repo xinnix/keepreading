@@ -83,11 +83,16 @@ function ranklist(req, res) {
   co(function * () {
     try {
       const users = yield userHelper.getAllUserRank();
-      res.render('ranklist', { users });
+      res.jsonp(users);
     } catch (err) {
       console.log(err);
     }
   });
+}
+
+
+function rankRender(req, res) {
+  res.render('./ranklist');
 }
 
 function materialRender(req, res) {
@@ -156,6 +161,7 @@ module.exports = {
   materialRender,
   materialDel,
   ranklist,
+  rankRender,
   cardAdd,
   cardDel,
   cardList,

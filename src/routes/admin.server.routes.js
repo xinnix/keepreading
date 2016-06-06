@@ -23,7 +23,7 @@ router.route('/card/add')
 router.route('/card/del')
         .get(admin.cardDel);
 
-router.get('/ranklist', admin.ranklist);
-
+router.get('/ranklist', admin.rankRender);
+router.get('/rank', admin.ranklist);
 
 module.exports = router;
