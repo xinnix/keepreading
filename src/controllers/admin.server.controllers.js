@@ -99,7 +99,7 @@ function getWebUserInfo(code) {
 function ranklist(req, res) {
   co(function * () {
     try {
-      const user = getWebUserInfo(req.query.code);
+      const user =  yield getWebUserInfo(req.query.code);
       const users = yield userHelper.getAllUserRank();
       res.jsonp({ users, user });
     } catch (err) {
