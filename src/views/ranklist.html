@@ -16,6 +16,7 @@
   <div id="rank">
     <div class="bg">
     </div>
+    <a href="{{url}}" class="btn btn-default">测试</a><b>{% raw %}{{user.nickname | truncate}}{% endraw %}</b>
     <div class="table-responsive">
 
         <table class="table rank table-striped">
@@ -29,11 +30,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users">
+                <tr v-for="rank in ranks">
                     <td>{% raw %}{{$index+1}}{% endraw %}</td>
-                    <td><img v-bind:src='{% raw %}user.headimgurl{% endraw %}' alt="" style="width:40px;height:40px;"/></td>
-                    <td>{% raw %}{{user.nickname | truncate}}{% endraw %}</td>
-                    <td class="day">{% raw %}{{user.keepdays}}{% endraw %}day</td>
+                    <td><img v-bind:src='{% raw %}rank.headimgurl{% endraw %}' alt="" style="width:40px;height:40px;"/></td>
+                    <td>{% raw %}{{rank.nickname | truncate}}{% endraw %}</td>
+                    <td class="day">{% raw %}{{rank.keepdays}}{% endraw %}day</td>
                     <td>
                         <span  class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red;font-size:20px;"></span>
                     </td>
@@ -55,7 +56,8 @@
     var example = new Vue({
       el: '#rank',
       data: {
-        users: null,
+        ranks: null,
+        user: null,
       },
       created: function(){
         this.fetchData()
@@ -69,7 +71,8 @@
         fetchData: function(){
           var self = this;
           $.getJSON('/admin/rank',function(data, result){
-            self.users = data;
+            self.ranks = data.users;
+            self.user = data.user;
           });
         },
         like: function(){

@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const Material = mongoose.model('Material');
 const Card = mongoose.model('Card');
 const path = require('path');
-const wechatAPI = require('../config/wechatAPI');
+const wechatAPI = require('../config/wechatAPI').api;
+const webapi = require('../config/wechatAPI').webapi;
+
 const fs = require('fs');
 const co = require('co');
 const userHelper = require('../helper/userHelper.server');
@@ -79,11 +81,27 @@ function materialDel(req, res) {
   });
 }
 
+function getWebUserInfo(code) {
+  return new Promise((resolve, reject) => {
+    webapi.getAccessToken(code, (err, result) => {
+      if (err) reject(err);
+      webapi.getUser(result.data.openid, (err1, result1) => {
+        if (err1) reject(err1);
+        resolve(result1);
+      });
+      // var accessToken = result.data.access_token;
+      // var openid = result.data.openid;
+    });
+  });
+}
+
+
 function ranklist(req, res) {
   co(function * () {
     try {
+      const user = getWebUserInfo(req.query.code);
       const users = yield userHelper.getAllUserRank();
-      res.jsonp(users);
+      res.jsonp({ users, user });
     } catch (err) {
       console.log(err);
     }
@@ -92,7 +110,8 @@ function ranklist(req, res) {
 
 
 function rankRender(req, res) {
-  res.render('./ranklist');
+  const url = webapi.getAuthorizeURL('http://joywill.cc/admin/ranklist', 'hehe', 'snsapi_userinfo');
+  res.render('./ranklist', { url });
 }
 
 function materialRender(req, res) {

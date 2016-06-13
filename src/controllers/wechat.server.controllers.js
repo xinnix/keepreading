@@ -5,7 +5,7 @@ const imgHelper = require('../helper/imgHelper.server');
 const userHelper = require('../helper/userHelper.server');
 const missionHelper = require('../helper/missionHelper.server');
 const keepLogic = require('../logic/keepLogic.server');
-const wechatAPI = require('../config/wechatAPI');
+const wechatAPI = require('../config/wechatAPI').api;
 const co = require('co');
 const moment = require('moment');
 

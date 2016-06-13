@@ -24,7 +24,8 @@
     "mongoose": "^4.4.5",
     "swig": "^1.4.2",
     "wechat": "^2.0.3",
-    "wechat-api": "^1.27.1"
+    "wechat-api": "^1.27.1",
+    "wechat-oauth": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

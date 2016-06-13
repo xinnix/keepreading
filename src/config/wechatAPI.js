@@ -1,6 +1,7 @@
 const config = require('./config');
 const fs = require('fs');
 const WechatAPI = require('wechat-api');
+const OAuth = require('wechat-oauth');
 
 let appid = config.wechatConfig.appid_test;
 let appsecret = config.wechatConfig.appsecret_test;
@@ -10,6 +11,7 @@ if (process.env.NODE_ENV === 'production') {
   appsecret = config.wechatConfig.appsecret;
 }
 
+const webapi = new OAuth(appid, appsecret);
 const api = new WechatAPI(appid, appsecret);
 // const api = new WechatAPI(config.wechatConfig.appid_test, config.wechatConfig.appsecret_test, callback => {
 //   // 传入一个获取全局token的方法
@@ -25,4 +27,7 @@ const api = new WechatAPI(appid, appsecret);
 // );
 // });
 
-module.exports = api;
+module.exports = {
+  api,
+  webapi,
+};
