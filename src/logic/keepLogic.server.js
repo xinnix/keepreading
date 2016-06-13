@@ -42,7 +42,7 @@ function getNewLevel(user) {
   const maxlevel = 10;
   const levelDay = [21, 31, 46, 66, 91, 121, 156, 196, 241, 291];
   for (const key in levelDay) {
-    if (user.keepdays < levelDay[key]) return key;
+    if (user.keepdays < levelDay[key]) return key+1;//最底等级为R1
   }
   return maxlevel;
 }
