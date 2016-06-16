@@ -6,17 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/Framework7/dist/css/framework7.ios.colors.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/style/ranklist.css">
-
     <title>排行榜</title>
-
 </head>
 
 <body>
   <div id="rank">
-    <div class="bg">
+    <div class="bg container-fluid">
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <img src='' alt="" style="width:40px;height:40px;"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+            1
+        </div>
+        <div class="col-xs-6">
+            2
+        </div>
+      </div>
     </div>
-    <a href="{{url}}" class="btn btn-default">测试</a><b>{% raw %}{{user.nickname | truncate}}{% endraw %}</b>
     <div class="table-responsive">
 
         <table class="table rank table-striped">

@@ -25,6 +25,16 @@ function getUserInfo(message) {
   });
 }
 
+function getUserInfoByOpenId(openid) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ openid }).exec()
+    .then((user) => {
+      resolve(user);
+    }).catch(err => {
+      reject(err);
+    });
+  });
+}
 
 function getAllUserRank() {
   return new Promise((resolve, reject) => {
@@ -44,4 +54,5 @@ function getAllUserRank() {
 module.exports = {
   getUserInfo,
   getAllUserRank,
+  getUserInfoByOpenId,
 };

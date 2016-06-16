@@ -1,6 +1,6 @@
 const Jimp = require('jimp');
 const async = require('async');
-const wechatAPI = require('../config/wechatAPI');
+const wechatAPI = require('../config/wechatAPI').api;
 const fs = require('fs');
 const moment = require('moment');
 

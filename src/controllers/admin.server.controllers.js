@@ -81,14 +81,11 @@ function materialDel(req, res) {
   });
 }
 
-function getWebUserInfo(code) {
+function getUserOpenIdByWeb(code) {
   return new Promise((resolve, reject) => {
     webapi.getAccessToken(code, (err, result) => {
       if (err) reject(err);
-      webapi.getUser(result.data.openid, (err1, result1) => {
-        if (err1) reject(err1);
-        resolve(result1);
-      });
+      resolve(result.data.openid);
       // var accessToken = result.data.access_token;
       // var openid = result.data.openid;
     });
@@ -99,19 +96,25 @@ function getWebUserInfo(code) {
 function ranklist(req, res) {
   co(function * () {
     try {
-      const user =  yield getWebUserInfo(req.query.code);
       const users = yield userHelper.getAllUserRank();
-      res.jsonp({ users, user });
+      res.jsonp({ users });
     } catch (err) {
       console.log(err);
     }
   });
 }
 
-
 function rankRender(req, res) {
-  const url = webapi.getAuthorizeURL('http://joywill.cc/admin/ranklist', 'hehe', 'snsapi_userinfo');
-  res.render('./ranklist', { url });
+  co(function * () {
+    try {
+      const openid = yield getUserOpenIdByWeb(req.query.code);
+      const user = yield userHelper.getUserInfoByOpenId(openid);
+      const rank = yield userHelper.getAllUserRank();
+      res.render('./rank', { rank, user });
+    } catch (err) {
+      console.log(err);
+    }
+  });
 }
 
 function materialRender(req, res) {

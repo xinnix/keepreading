@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Your app title -->
+  <title>GHS</title>
+  <!-- Path to Framework7 Library CSS, iOS Theme -->
+  <link href="//cdn.bootcss.com/framework7/1.4.2/css/framework7.ios.min.css" rel="stylesheet">
+  <!-- Path to Framework7 color related styles, iOS Theme -->
+  <link href="//cdn.bootcss.com/framework7/1.4.2/css/framework7.ios.colors.min.css" rel="stylesheet">
+  <!-- Path to your custom app styles-->
+  <style>
+  .facebook-card .card-header {
+    display: block;
+    padding: 10px;
+  }
+  .facebook-card .facebook-avatar {
+    float: left;
+  }
+  .facebook-card .facebook-name {
+    margin-left: 44px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .facebook-card .facebook-date {
+    margin-left: 44px;
+    font-size: 13px;
+    color: #8e8e93;
+  }
+  .facebook-card .card-footer {
+    background: #fafafa;
+  }
+  .facebook-card .card-footer a {
+    color: #81848b;
+    font-weight: 500;
+  }
+  .facebook-card .card-content img {
+    display: block;
+  }
+  .facebook-card .card-content-inner {
+    padding: 15px 10px;
+  }
+  .rank {
+    text-align: center;
+    font-size: 30px;
+    margin-right: 20px;
+  }
+  .detail {
+    text-align: center;
+  }
+  .detail-title {
+    width: 100%;
+    font-size: 14px;
+    color: #999999;
+  }
+  .detail-content {
+    width: 100%;
+    font-size: 20px;
+  }
+</style>
+
+
+</head>
+<body>
+  <!-- Status bar overlay for full screen mode (PhoneGap) -->
+  <div class="statusbar-overlay"></div>
+  <!-- Views -->
+  <div class="views">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+      <!-- Top Navbar-->
+      <div class="navbar">
+        <div class="navbar-inner">
+          <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+          <div class="center sliding">Grit Habit System</div>
+        </div>
+      </div>
+      <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+      <div class="pages navbar-through toolbar-through">
+        <!-- Page, "data-page" contains page name -->
+        <div data-page="index" class="page">
+          <!-- Scrollable page content -->
+          <div class="page-content">
+            <div class="card facebook-card">
+              <div class="card-header no-border">
+                <div class="facebook-avatar"><img src="{{user.headimgurl}}" width="34" height="34"></div>
+                <div class="facebook-name">{{user.nickname}}</div>
+                <div class="facebook-date">{{Date.format()}}</div>
+              </div>
+              <div class="card-content">
+                <div class="row detail">
+                  <div class="col-25">
+                    <div class="detail-title">
+                      等级
+                    </div>
+                    <div class="detail-content">
+                      {{user.level}}
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div class="detail-title">
+                      积分
+                    </div>
+                    <div class="detail-content">
+                      {{user.score}}
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div class="detail-title">
+                      累计
+                    </div>
+                    <div class="detail-content">
+                      {{user.keepdays}}
+                    </div>
+                  </div>
+                  <div class="col-25">
+                    <div class="detail-title">
+                      连击
+                    </div>
+                    <div class="detail-content">
+                      {{user.cont_keepdays}}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- <div class="card-footer no-border">
+                <a href="#" class="link">Like</a>
+                <a href="#" class="link">Comment</a>
+                <a href="#" class="link">Share</a>
+              </div> -->
+            </div>
+
+            <div class="card">
+              <div class="card-header">Rank List:</div>
+
+              <div class="card-content">
+                <div class="list-block media-list">
+                  <ul>
+                    {% for user in rank %}
+                    <li class="item-content ">
+                        <div class="item-media">
+                          <img src="{{user.headimgurl}}" width="44">
+                        </div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">{{user.nickname}}</div>
+                          </div>
+                          <div class="item-subtitle"> Keep:{{user.keepdays}} | CONT:{{user.cont_keepdays}}</div>
+                        </div>
+                        <div class="rank">
+                          {{loop.index}}
+                        </div>
+                    </li>
+                    {% endfor %}
+
+
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <span></span>
+                <span>Share</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bottom Toolbar-->
+      <!-- <div class="toolbar">
+        <div class="toolbar-inner">
+          <a href="#" class="link">Link 1</a>
+          <a href="#" class="link">Link 2</a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <!-- Path to Framework7 Library JS-->
+  <script src="//cdn.bootcss.com/framework7/1.4.2/js/framework7.min.js"></script>  <!-- Path to your app js-->
+</body>
+</html>
