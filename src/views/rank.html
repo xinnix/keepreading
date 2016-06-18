@@ -14,20 +14,26 @@
   <link href="//cdn.bootcss.com/framework7/1.4.2/css/framework7.ios.colors.min.css" rel="stylesheet">
   <!-- Path to your custom app styles-->
   <style>
+  .facebook-card {
+    padding-bottom:10px;
+    padding-top:10px;
+  }
   .facebook-card .card-header {
     display: block;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
   }
   .facebook-card .facebook-avatar {
     float: left;
   }
   .facebook-card .facebook-name {
-    margin-left: 44px;
-    font-size: 14px;
+    margin-left: 54px;
+    font-size: 18px;
     font-weight: 500;
   }
   .facebook-card .facebook-date {
-    margin-left: 44px;
+    margin-left: 54px;
     font-size: 13px;
     color: #8e8e93;
   }
@@ -46,7 +52,7 @@
   }
   .rank {
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     margin-right: 20px;
   }
   .detail {
@@ -59,7 +65,11 @@
   }
   .detail-content {
     width: 100%;
-    font-size: 20px;
+    font-size: 14px;
+  }
+  .item-title{
+    font-weight: lighter;
+    font-size: 14px;
   }
 </style>
 
@@ -87,9 +97,9 @@
           <div class="page-content">
             <div class="card facebook-card">
               <div class="card-header no-border">
-                <div class="facebook-avatar"><img src="{{user.headimgurl}}" width="34" height="34"></div>
+                <div class="facebook-avatar"><img src="{{user.headimgurl}}" width="44" height="44"></div>
                 <div class="facebook-name">{{user.nickname}}</div>
-                <div class="facebook-date">{{Date.format()}}</div>
+                <div class="facebook-date">{{user.city}}</div>
               </div>
               <div class="card-content">
                 <div class="row detail">
@@ -136,7 +146,7 @@
             </div>
 
             <div class="card">
-              <div class="card-header">Rank List:</div>
+              <div class="card-header">Rank</div>
 
               <div class="card-content">
                 <div class="list-block media-list">
@@ -144,13 +154,13 @@
                     {% for user in rank %}
                     <li class="item-content ">
                         <div class="item-media">
-                          <img src="{{user.headimgurl}}" width="44">
+                          <img src="{{user.headimgurl}}" width="34">
                         </div>
                         <div class="item-inner">
                           <div class="item-title-row">
                             <div class="item-title">{{user.nickname}}</div>
                           </div>
-                          <div class="item-subtitle"> Keep:{{user.keepdays}} | CONT:{{user.cont_keepdays}}</div>
+                          <div class="item-subtitle"> Keep:{{user.keepdays}} | 连击:{{user.cont_keepdays}}</div>
                         </div>
                         <div class="rank">
                           {{loop.index}}
@@ -181,6 +191,8 @@
     </div>
   </div>
   <!-- Path to Framework7 Library JS-->
-  <script src="//cdn.bootcss.com/framework7/1.4.2/js/framework7.min.js"></script>  <!-- Path to your app js-->
+  <script src="//cdn.bootcss.com/framework7/1.4.2/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+  <!-- <script src="//cdn.bootcss.com/moment.js/2.13.0/moment.min.js"></script> -->
 </body>
 </html>

@@ -12,9 +12,13 @@
       },{
           "type":"view",
           "name":"排行榜",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf8e294c011cd47e1&redirect_uri=http%3A%2F%2Fsab4h63cag.proxy.qqbrowser.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_userinfo&state=hehe#wechat_redirect
+          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb3762a929cf9e070&redirect_uri=http%3A%2F%2Fjoywill.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect
 "
       }
 
       ]
  }
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb3762a929cf9e070&redirect_uri=http%3A%2F%2Fjoywill.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf8e294c011cd47e1&redirect_uri=http%3A%2F%2Fsab4h63cag.proxy.qqbrowser.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect
