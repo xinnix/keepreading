@@ -23,8 +23,8 @@ const UserSchema = new Schema({
     default: 0,
   },
   level: {
-    type: String,
-    default: 'R1',
+    type: Number,
+    default: '1',
   },
   like: {
     type: Number,

@@ -5,7 +5,7 @@ const CardSchema = new Schema({
   title: String,
   filepath: String,
   memo: String,
-  level: String,
+  level: Number,
   special: String,
   filename: String,
   created: {

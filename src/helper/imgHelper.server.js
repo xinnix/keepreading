@@ -28,7 +28,7 @@ function combineKeepCard(user, background) {
       },
       (image, cb) => {
         Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(font => {
-          image.print(font, 210, 40, user.level);
+          image.print(font, 210, 40, `R${user.level}`);
           cb(null, image);
         });
       },

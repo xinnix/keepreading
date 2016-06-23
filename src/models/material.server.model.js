@@ -15,7 +15,7 @@ const MaterialSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  level: String,
+  level: Number,
   permanent: Boolean,
 });
 

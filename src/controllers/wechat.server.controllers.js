@@ -103,7 +103,7 @@ const handleVoice = function (message, req, res, next) {
       } else {
         res.reply('专属Grit卡生成中....');
         const keepuser = yield keepLogic.keepAday(user, iscontinue);
-        const background = yield keepLogic.getRandomCard();
+        const background = yield keepLogic.getRandomCard(user.level);
         const file = yield imgHelper.combineKeepCard(keepuser, background.filepath);
         const mediaId = yield imgHelper.uploadImg(file);
         const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);

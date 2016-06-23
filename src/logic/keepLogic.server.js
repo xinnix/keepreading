@@ -4,14 +4,24 @@ const KeepRecord = mongoose.model('KeepRecord');
 const Card = mongoose.model('Card');
 const moment = require('moment');
 
-function getRandomCard() {
+function getRandomCard(level) {
   return new Promise((resolve, reject) => {
-    Card.count().exec((err, count) => {
+    Card.count()
+    .where('level')
+    .lte(level)
+    .exec((err, count) => {
+      console.log(count);
       if (err) reject(err);
       const random = Math.floor(Math.random() * count);
-      Card.findOne().skip(random).exec().then(result => {
+      Card.findOne()
+      .where('level')
+      .lte(level)
+      .skip(random)
+      .exec()
+      .then(result => {
         resolve(result);
-      }).catch(err1 => {
+      })
+      .catch(err1 => {
         reject(err1);
       });
     });
@@ -100,7 +110,7 @@ function keepAday(user, iscontinue) {
       userk.keepdays += 1;
       userk.score += getNewScore(userk);
       const level = getNewLevel(userk);
-      userk.level = `R${level}`;
+      userk.level = level;
       if (iscontinue){
         userk.cont_keepdays += 1;
         if(userk.cont_keepdays > userk.max_keepdays) userk.max_keepdays = userk.cont_keepdays;
