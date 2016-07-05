@@ -92,6 +92,30 @@ function handleEvent(message, req, res, next) {
   }
 }
 
+// function sleep(ms){
+//   return function(cb){
+//     setTimeout(cb, ms);
+//   };
+// }
+
+function delayGritSend(user, iscontinue){
+  co(function* () {
+    try{
+      const keepuser = yield keepLogic.keepAday(user, iscontinue);
+      const background = yield keepLogic.getRandomCard(user.level);
+      const file = yield imgHelper.combineKeepCard(keepuser, background.filepath);
+      const mediaId = yield imgHelper.uploadImg(file);
+      const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);
+      wechatAPI.sendText(user.openid, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
+      });
+      wechatAPI.sendImage(user.openid, mediaId, (err, result) => {
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
 
 const handleVoice = function (message, req, res, next) {
   co(function* () {
@@ -101,22 +125,15 @@ const handleVoice = function (message, req, res, next) {
       if (iskeeped) {
         res.reply('今日已经打卡，明天再来吧');
       } else {
-        res.reply('专属Grit卡生成中....');
-        const keepuser = yield keepLogic.keepAday(user, iscontinue);
-        const background = yield keepLogic.getRandomCard(user.level);
-        const file = yield imgHelper.combineKeepCard(keepuser, background.filepath);
-        const mediaId = yield imgHelper.uploadImg(file);
-        const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);
-        wechatAPI.sendText(message.FromUserName, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
-        });
-        wechatAPI.sendImage(message.FromUserName, mediaId, (err, result) => {
-        });
+        res.reply('您的回复正在等待管理员审核，如果您对自己的回答不满意，可以重新上传，我们将审核最新的答案。');
+        setTimeout(function(){ delayGritSend(user, iscontinue) }, 600000);//暂时设置为10分钟
       }
     } catch (err) {
       console.log(err);
     }
   });
 };
+
 
 
 
