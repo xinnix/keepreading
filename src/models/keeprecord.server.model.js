@@ -8,6 +8,10 @@ const KeepRecordSchema = new Schema({
     required: true,
   },
   keep_card: String,
+  status: {
+    type: String,
+    default: 'pending',
+  },
   created: {
     type: Date,
     default: Date.now,

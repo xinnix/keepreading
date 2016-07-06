@@ -106,7 +106,7 @@ function delayGritSend(user, iscontinue){
       const file = yield imgHelper.combineKeepCard(keepuser, background.filepath);
       const mediaId = yield imgHelper.uploadImg(file);
       const keeprecord = yield keepLogic.saveKeepCard(user, mediaId);
-      wechatAPI.sendText(user.openid, `${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
+      wechatAPI.sendText(user.openid, `审核通过，${user.nickname}已于${moment().format('HH:mm:ss')}打卡成功！请及时保存您的Grit卡，加油！`, (err, result) => {
       });
       wechatAPI.sendImage(user.openid, mediaId, (err, result) => {
       });
@@ -121,12 +121,16 @@ const handleVoice = function (message, req, res, next) {
   co(function* () {
     try {
       const user = yield userHelper.getUserInfo(message, req, res, next);
-      const { iskeeped, iscontinue } = yield keepLogic.isKeeped(user);
-      if (iskeeped) {
+      const { iskeeped, iscontinue, status } = yield keepLogic.isKeeped(user);
+      if (iskeeped && (status === 'complete')) {
         res.reply('今日已经打卡，明天再来吧');
+      } else if(iskeeped && (status === 'pending')){
+        keepLogic.receiveAnswer(user);
+        res.reply('您的回答已更新，请更待管理员审核。');
       } else {
+        keepLogic.receiveAnswer(user);
         res.reply('您的回复正在等待管理员审核，如果您对自己的回答不满意，可以重新上传，我们将审核最新的答案。');
-        setTimeout(function(){ delayGritSend(user, iscontinue) }, 600000);//暂时设置为10分钟
+        setTimeout(function(){ delayGritSend(user, iscontinue) }, 60000);//暂时设置为10分钟
       }
     } catch (err) {
       console.log(err);

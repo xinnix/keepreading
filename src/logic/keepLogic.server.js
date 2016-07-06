@@ -10,7 +10,6 @@ function getRandomCard(level) {
     .where('level')
     .lte(level)
     .exec((err, count) => {
-      console.log(count);
       if (err) reject(err);
       const random = Math.floor(Math.random() * count);
       Card.findOne()
@@ -36,12 +35,14 @@ function isKeeped(user) {
     .sort('-created')
     .exec()
     .then(keeprecords => {
-      if (keeprecords.length === 0) resolve(false, true);
+      if (keeprecords.length === 0) resolve({ iskeeped: false, iscontinue: false, status: '' });
       const theday = moment(keeprecords[0].created);
+      const status = keeprecords[0].status;
       const iskeeped = theday.isSame(Date.now(), 'day');
       const iscontinue = theday.add(1, 'days').isSame(Date.now(), 'day');
-      resolve({ iskeeped, iscontinue });
-    }).catch(err => {
+      resolve({ iskeeped, iscontinue, status });
+    })
+    .catch(err => {
       reject(err);
     });
   });
@@ -96,13 +97,33 @@ function getNewestKeeprecord(user){
   });
 }
 
-
+function receiveAnswer(user){
+  getNewestKeeprecord(user)
+  .then((keeprecord) => {
+    const theday = moment(keeprecord.created);
+    const iskeeped = theday.isSame(Date.now(), 'day');
+    if(iskeeped){
+      keeprecord.created = Date.now();
+      keeprecord.save();
+    } else {
+      const keepRecord = new KeepRecord({ user: user._id });
+      keepRecord.save((err, result) => {
+        if (err) console.log(err);
+      });
+    }
+  }).catch((err) => {
+    console.log(err);
+  });
+}
 
 function keepAday(user, iscontinue) {
   return new Promise((resolve, reject) => {
-    const keepRecord = new KeepRecord({ user: user._id });
-    keepRecord.save((err, result) => {
-      if (err) reject(err);
+    getNewestKeeprecord(user)
+    .then((keeprecord) => {
+      keeprecord.status = 'complete';
+      keeprecord.save();
+    }).catch((err) => {
+      console.log(err);
     });
 
     User.findOne({ _id: user._id })
@@ -134,4 +155,5 @@ module.exports = {
   saveKeepCard,
   getNewestKeeprecord,
   getRandomCard,
+  receiveAnswer,
 };

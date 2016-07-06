@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+handleGetMession	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleGetMession(message, req, res, next) {$/;"	function	line:13
+co	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  co(function *(){$/;"	function	line:14
+handleGetMession	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleGetMession(message, req, res, next) {$/;"	function	line:13
+handleGetPlan	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleGetPlan(message, req, res, next) {$/;"	function	line:38
+co	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  co(function *(){$/;"	function	line:39
+handleGetPlan	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleGetPlan(message, req, res, next) {$/;"	function	line:38
+handleEventClick	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleEventClick(message, req, res, next) {$/;"	function	line:58
+switch	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  switch (message.EventKey) {$/;"	function	line:59
+handleEventClick	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleEventClick(message, req, res, next) {$/;"	function	line:58
+handleText	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleText(message, req, res, next) {$/;"	function	line:75
+handleText	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleText(message, req, res, next) {$/;"	function	line:75
+handleEvent	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleEvent(message, req, res, next) {$/;"	function	line:82
+switch	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  switch (message.Event) {$/;"	function	line:83
+handleEvent	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function handleEvent(message, req, res, next) {$/;"	function	line:82
+sleep	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^\/\/ function sleep(ms){$/;"	function	line:95
+delayGritSend	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function delayGritSend(user, iscontinue){$/;"	function	line:101
+co	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  co(function* () {$/;"	function	line:102
+delayGritSend	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^function delayGritSend(user, iscontinue){$/;"	function	line:101
+co	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^  co(function* () {$/;"	function	line:121
+setTimeout	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^        setTimeout(function(){ delayGritSend(user, iscontinue) }, 60000);\/\/暂时设置为10分钟$/;"	function	line:133
+const	/Users/xinxin/code/keepReading/src/controllers/wechat.server.controllers.js	/^}$/;"	function	line:117
