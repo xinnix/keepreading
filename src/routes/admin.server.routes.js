@@ -26,4 +26,6 @@ router.route('/card/del')
 router.get('/ranklist', admin.rankRender);
 router.get('/rank', admin.ranklist);
 
+router.get('/help', admin.help);
+
 module.exports = router;

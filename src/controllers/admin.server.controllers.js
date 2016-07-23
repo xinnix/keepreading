@@ -176,6 +176,9 @@ function cardRender(req, res) {
   res.render('./card/card-add');
 }
 
+function help(req, res) {
+  res.render('./help');
+}
 
 module.exports = {
   materialAdd,
@@ -188,6 +191,7 @@ module.exports = {
   cardDel,
   cardList,
   cardRender,
+  help,
 };
 
 
