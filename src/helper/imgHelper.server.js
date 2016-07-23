@@ -4,10 +4,6 @@ const wechatAPI = require('../config/wechatAPI').api;
 const fs = require('fs');
 const moment = require('moment');
 
-// function combineMissionCard(mission, background) {
-//
-// }
-
 // 根据用户信息合成keep卡
 function combineKeepCard(user, background) {
   return new Promise((resolve, reject) => {

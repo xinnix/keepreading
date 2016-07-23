@@ -16,10 +16,11 @@ const router = express.Router();
 router.use('/', wechat(wechatConfig.token)
     .text(wechatController.handleText)
     .voice(wechatController.handleVoice)
+    .image(wechatController.handleImage)
     .event(wechatController.handleEvent)
     .middlewarify(),
     (req, res) => {
-      res.send('');
+      res.reply('');
     }
 );
 

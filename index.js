@@ -1,7 +1,7 @@
 
 const config = require('./src/config/config');
 const mongoose = require('mongoose');
-require('./src/models/material.server.model');
+require('./src/models/task.server.model');
 require('./src/models/user.server.model');
 require('./src/models/keeprecord.server.model');
 require('./src/models/card.server.model');

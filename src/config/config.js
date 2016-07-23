@@ -9,5 +9,8 @@ module.exports = {
     appsecret_test: '729b99cfef8f39ec492f4fbaf3576b72',
     encodingAESKey: 'e4miuSxQNBIAFYuyi5ky0m1R79oV950ijnjKOtPSXYG',
   },
+  logic: {
+    delayTime: 10000,
+  },
 };
 // db: 'mongodb://lightclass:lightclass@120.25.227.156:29017/lightclass',

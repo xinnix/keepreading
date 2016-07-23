@@ -7,10 +7,15 @@ const KeepRecordSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  keep_card: String,
+  // 增加记录已获得卡片的功能
+  card: {
+    type: Schema.ObjectId,
+    ref: 'Card',
+  },
+  gritcard: String,
   status: {
     type: String,
-    default: 'pending',
+    default: 'pending', //or complete
   },
   created: {
     type: Date,

@@ -2,14 +2,13 @@ const wechatAPI = require('../config/wechatAPI');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-
-function getUserInfo(message) {
+// 当接收到用户发来的消息时，判断数据库中是否有用户信息，若无，则根据openid从微信服务器获取
+function getUserInfoByOpenId(openid) {
   return new Promise((resolve, reject) => {
-    const openid = message.FromUserName;
     User.find({ openid }).exec()
     .then((users) => {
       if (users.length === 0) {
-        wechatAPI.getUser(message.FromUserName, (err, userInfo) => {
+        wechatAPI.getUser(openid, (err, userInfo) => {
           const user = new User(userInfo);
           user.save(err1 => {
             if (err1) reject(err1);
@@ -19,18 +18,8 @@ function getUserInfo(message) {
       } else {
         resolve(users[0]);
       }
-    }).catch(err => {
-      reject(err);
-    });
-  });
-}
-
-function getUserInfoByOpenId(openid) {
-  return new Promise((resolve, reject) => {
-    User.findOne({ openid }).exec()
-    .then((user) => {
-      resolve(user);
-    }).catch(err => {
+    })
+    .catch(err => {
       reject(err);
     });
   });
@@ -52,7 +41,6 @@ function getAllUserRank() {
 
 
 module.exports = {
-  getUserInfo,
   getAllUserRank,
   getUserInfoByOpenId,
 };

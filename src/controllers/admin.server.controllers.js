@@ -1,6 +1,6 @@
 const getErrorMessage = require('./core/errors.server.controllers').getErrorMessage;
 const mongoose = require('mongoose');
-const Material = mongoose.model('Material');
+const Material = mongoose.model('Task');
 const Card = mongoose.model('Card');
 const path = require('path');
 const wechatAPI = require('../config/wechatAPI').api;

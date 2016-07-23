@@ -3,17 +3,30 @@
      {
           "type":"click",
           "name":"了解GHS",
-          "key":"GET_PLAN"
+          "key":"GET_HELP"
       },
       {
-          "type":"click",
           "name":"每日任务",
-          "key":"GET_MISSION"
+          "sub_button":[
+           {
+               "type":"click",
+               "name":"Normal",
+               "key":"GET_TASK_EASY"
+            },
+            {
+               "type":"click",
+               "name":"Hard",
+               "key":"GET_TASK_NORMAL"
+            },
+            {
+               "type":"click",
+               "name":"Survival",
+               "key":"GET_TASK_HARD"
+            }]
       },{
           "type":"view",
           "name":"排行榜",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb3762a929cf9e070&redirect_uri=http%3A%2F%2Fjoywill.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect
-"
+          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb3762a929cf9e070&redirect_uri=http%3A%2F%2Fjoywill.cc%2Fadmin%2Franklist&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect"
       }
 
       ]

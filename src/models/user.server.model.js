@@ -35,5 +35,8 @@ const UserSchema = new Schema({
     default: 0,
   },
   state: String,
+  awarded_card: [{
+    type: Schema.ObjectId,
+    ref: 'Card' }],
 });
 mongoose.model('User', UserSchema);

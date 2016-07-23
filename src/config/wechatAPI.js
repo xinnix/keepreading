@@ -1,5 +1,5 @@
 const config = require('./config');
-const fs = require('fs');
+// const fs = require('fs');
 const WechatAPI = require('wechat-api');
 const OAuth = require('wechat-oauth');
 
